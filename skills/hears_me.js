@@ -27,8 +27,8 @@ module.exports = function(controller) {
             }
 
             response.attachments = [{
-                'fallback': 'Your answer was ' + trigger.actions[0].value,
-                'text': 'Your answer was ' + trigger.actions[0].value,
+                'fallback': 'The answer was ' + trigger.actions[0].value,
+                'text': 'Looks like tea\'s on everybody, courtesy of <@' + trigger.user + '>!',
                 'color': '#f8b88b',
             }];
 
