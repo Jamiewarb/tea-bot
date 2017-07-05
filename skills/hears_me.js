@@ -5,7 +5,7 @@ var config = require('../config.js');
  */
 
 module.exports = function(controller) {
-    controller.hears(['me'], 'direct_mention,mention', function(bot, message) {
+    controller.hears(['^me'], 'direct_mention,mention', function(bot, message) {
         confirmMe(controller, bot, message);
     });
 
@@ -18,25 +18,29 @@ module.exports = function(controller) {
 
             if (answer !== 'yes') {
                 response.attachments = [{
-                    'fallback': 'I pity the fool that changes his mind!',
-                    'text': 'I pity the fool that changes his mind!',
+                    'fallback': 'The answer was ' + trigger.actions[0].value,
+                    'text': '<@' + trigger.user + '>: No',
                     'color': '#f8b88b',
                 }];
                 bot.replyInteractive(trigger, response);
+                bot.say('I pity the fool that changes his mind!', trigger.channel);
                 return false;
             }
 
             response.attachments = [{
                 'fallback': 'The answer was ' + trigger.actions[0].value,
-                'text': 'Looks like tea\'s on everybody, courtesy of <@' + trigger.user + '>!',
+                'text': '<@' + trigger.user + '>: Yes',
                 'color': '#f8b88b',
             }];
 
-            console.log(response);
-
             bot.replyInteractive(trigger, response);
 
-            return false;
+            startMe(controller, bot, {
+                'team': trigger.team,
+                'user': trigger.user,
+                'channel': trigger.channel
+            });
+
         }
 
     });
@@ -70,7 +74,7 @@ const confirmMe = function(controller, bot, message) {
     });
 }
 
-startMe = function(controller, bot, message) {
+const startMe = function(controller, bot, message) {
     controller.storage.channels.get(message.channel, function(err, channel) {
         console.log("channel:");
         console.log(channel);
@@ -80,21 +84,16 @@ startMe = function(controller, bot, message) {
     let drinks = config.drinks;
 
     for (let drink in drinks) {
+        if (!drinks.hasOwnProperty(drink)) continue; //skip if from prototype
         attachments.push({
-            'fallback': drink.option,
-            'title': drink.option,
-            'text': 'test',
-            'color': drink.color,
+            'fallback': drinks[drink].option,
+            'title': drinks[drink].option,
+            'color': drinks[drink].color
         });
     }
 
-    console.log("Drinks");
-    console.log(drinks);
-    console.log("Attachments")
-    console.log(attachments);
-
     bot.reply(message, {
-        'text': 'Okay great, <@' + message.user + '> is doing a round! Get your orders in:',
+        'text': 'Okay great, <@' + message.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below:',
         'attachments': attachments,
     });
     // and now deliver cheese via tcp/ip...

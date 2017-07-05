@@ -14,7 +14,7 @@ config.drinks = {
     'other': {
         'name': 'Other',
         'color': '#ebf4fa',
-        'option': 'other <optional message, e.g. water>',
+        'option': 'other <message>',
     }
 };
 
