@@ -3,13 +3,13 @@
  */
 
 module.exports = function(controller) {
-
     controller.hears(['me'], 'direct_message,direct_mention,mention', function(bot, message) {
-
         beginMe(controller, bot, message);
-
     });
 
+    controller.on('interactive_message_callback', function(bot, trigger) {
+        console.log(trigger);
+    });
 }
 
 const beginMe = function(controller, bot, message) {
