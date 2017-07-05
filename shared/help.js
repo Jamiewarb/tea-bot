@@ -9,8 +9,8 @@ exports.getHelpMessage = function() {
                 'color': '#fea3aa'
             },
             {
-                'fallback': 'you - Start a round of tea, and pick the fool to make it',
-                'title': 'you',
+                'fallback': 'you <user> - Start a round of tea, and pick the fool to make it',
+                'title': 'you <user>',
                 'text': 'Start a round of tea, and pick the fool to make it',
                 'color': '#f8b88b'
             },
@@ -34,8 +34,8 @@ exports.getHelpMessage = function() {
             },
             {
                 'fallback': 'help - View all these commands again',
-                'title': 'help <command>',
-                'text': 'View all help, or add a command for specific help about it',
+                'title': 'help',
+                'text': 'View all help',
                 'color': '#f2a2e8'
             }
         ]

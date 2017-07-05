@@ -11,8 +11,8 @@ module.exports = function(controller) {
             convo.say('As a kid, I got three meals a day. Oatmeal, miss-a-meal and no meal');
 
             let newMessage = help.getHelpMessage();
+            newMessage.text = "But okay, fine, I'll help you out. " + newMessage.text;
             convo.say(newMessage);
-
 
             convo.next();
         });
