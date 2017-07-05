@@ -6,7 +6,6 @@ var config = require('../shared/config.js');
 
 module.exports = function(controller) {
     controller.hears(['me'], 'direct_mention,mention', function(bot, message) {
-        console.log(message);
         confirmMe(controller, bot, message);
     });
 }
