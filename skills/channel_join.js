@@ -1,4 +1,5 @@
 var debug = require('debug')('botkit:channel_join');
+var help = require('../shared/help.js');
 
 module.exports = function(controller) {
 
@@ -8,7 +9,10 @@ module.exports = function(controller) {
 
             convo.say('http://gph.is/2bsaGX6');
             convo.say('As a kid, I got three meals a day. Oatmeal, miss-a-meal and no meal');
-            convo.say('But fine, I\'ll help. Just type let me know what you want to do, or type `help`');
+
+            let newMessage = help.getHelpMessage();
+            convo.say(newMessage);
+
 
             convo.next();
         });
