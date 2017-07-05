@@ -1,7 +1,5 @@
 var debug = require('debug')('botkit:channel_join');
 var help = require('../shared/help.js');
-console.log("HELP HELP HELP");
-console.log(help);
 
 module.exports = function(controller) {
 
@@ -12,9 +10,9 @@ module.exports = function(controller) {
             convo.say('http://gph.is/2bsaGX6');
             convo.say('As a kid, I got three meals a day. Oatmeal, miss-a-meal and no meal');
 
-            let newMessage = help.getHelpMessage();
-            newMessage.text = "But okay, fine, I'll help you out. " + newMessage.text;
-            convo.say(newMessage);
+            let helpMessage = help;
+            helpMessage.text = "But okay, fine, I'll help you out. " + helpMessage.text;
+            convo.say(helpMessage);
 
             convo.next();
         });

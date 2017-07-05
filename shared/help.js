@@ -17,7 +17,7 @@ help.attachments = [
         'color': config.optionSettings.you.color
     },
     {
-        'fallback': 'someone - Start a round of tea, and ask someone to make it',
+        'fallback': 'someone - Ask politely if someone will start a round of tea',
         'title': 'someone',
         'text': 'Start a round of tea, and ask someone to make it',
         'color': config.optionSettings.someone.color
