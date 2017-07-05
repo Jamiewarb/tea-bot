@@ -14,7 +14,7 @@ const beginMe = function(controller, bot, message) {
     bot.createConversation(message, function(err, convo) {
 
         convo.addMessage({
-            text: 'It won\t be as good as mine, but you gotta start somewhere. I\'ll let everyone know',
+            text: 'It won\'t be as good as mine, but you gotta start somewhere. I\'ll let everyone know',
         },'yes_thread');
 
         convo.addMessage({
@@ -53,8 +53,15 @@ const beginMe = function(controller, bot, message) {
         convo.on('end', function(convo) {
 
             if (convo.successful()) {
-                bot.reply(message, 'Okay, off I go!!!');
 
+                controller.storage.channels.get(message.channel, function(err, channel) {
+                    console.log("channel:");
+                    console.log(channel);
+                });
+
+                bot.reply(message, {
+                    'Okay great, <@${' + message.user + '}> is doing a round! Get your orders in:'
+                });
                 // and now deliver cheese via tcp/ip...
 
             }
