@@ -17,6 +17,23 @@ exports.config = function() {
         },
         'teaderboard': {
             'color': '#f2a2e8'
+        },
+        'drinks': {
+            'tea': {
+                'name': 'Tea',
+                'color': '#edd8bb',
+                'option': 'tea <optional message>',
+            },
+            'coffee': {
+                'name': 'Coffee',
+                'color': '#6f4e37',
+                'option': 'coffee <optional message>',
+            },
+            'other': {
+                'name': 'Other',
+                'color': '#ebf4fa',
+                'option': 'other <optional message, e.g. water>',
+            }
         }
     }
 }
