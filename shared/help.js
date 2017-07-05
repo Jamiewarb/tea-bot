@@ -15,6 +15,12 @@ exports.getHelpMessage = function() {
                 'color': '#f8b88b'
             },
             {
+                'fallback': 'someone - Start a round of tea, and ask someone to make it',
+                'title': 'someone',
+                'text': 'Start a round of tea, and ask someone to make it',
+                'color': '#f8b88b'
+            },
+            {
                 'fallback': 'random - Start a round of tea, and randomly pick the fool to make it',
                 'title': 'random',
                 'text': 'Start a round of tea, and randomly pick the fool to make it',
