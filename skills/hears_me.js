@@ -10,20 +10,41 @@ module.exports = function(controller) {
     });
 
     controller.on('interactive_message_callback', function(bot, trigger) {
-        console.log("Confused");
+
         if (trigger.actions[0].name.match(/^confirm_me$/)) {
-            bot.say({
+
+            let answer = trigger.actions[0].value,
+                response = trigger.original_message;
+
+            if (answer !== 'yes') {
+                response.attachments = [{
+                    'fallback': 'I pity the fool that changes his mind!',
+                    'text': 'I pity the fool that changes his mind!',
+                    'color': '#f8b88b',
+                }];
+                bot.replyInteractive(trigger, response);
+                return false;
+            }
+
+            response.attachments = [{
+                'fallback': 'Your answer was ' + trigger.actions[0].value,
                 'text': 'Your answer was ' + trigger.actions[0].value,
-                'channel': trigger.channel
-            });
+                'color': '#f8b88b',
+            }];
+
+            console.log(response);
+
+            bot.replyInteractive(trigger, response);
+
             return false;
         }
+
     });
 }
 
 const confirmMe = function(controller, bot, message) {
     bot.reply(message, {
-        'text': 'So you\'re going to make a round of tea, are you?',
+        'text': '<@' + message.user + '>, you\'re going to make a round of tea, are you?',
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
