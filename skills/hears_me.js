@@ -8,7 +8,10 @@ module.exports = function(controller) {
     });
 
     controller.on('interactive_message_callback', function(bot, trigger) {
-        console.log(trigger);
+        if (trigger.actions[0].name.match(/^confirm_me$/)) {
+            bot.reply('Your answer was ' + trigger.actions[0].value);
+            return false;
+        }
     });
 }
 
@@ -23,13 +26,13 @@ const beginMe = function(controller, bot, message) {
                 'attachment_type': 'default',
                 'actions': [
                     {
-                        'name': 'yes',
+                        'name': 'confirm_me',
                         'text': 'Yes',
                         'type': 'button',
                         'value': 'yes'
                     },
                     {
-                        'name': 'no',
+                        'name': 'confirm_me',
                         'text': 'No',
                         'type': 'button',
                         'value': 'no'
