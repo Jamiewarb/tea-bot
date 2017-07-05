@@ -8,46 +8,44 @@ module.exports = function(controller) {
     controller.hears(['me'], 'direct_mention,mention', function(bot, message) {
         confirmMe(controller, bot, message);
     });
+
+    controller.on('interactive_message_callback', function(bot, trigger) {
+        console.log("Confused");
+        if (trigger.actions[0].name.match(/^confirm_me$/)) {
+            bot.say({
+                'text': 'Your answer was ' + trigger.actions[0].value,
+                'channel': trigger.channel
+            });
+            return false;
+        }
+    });
 }
 
 const confirmMe = function(controller, bot, message) {
-
-    bot.createConversation(message, function(err, convo) {
-
-        convo.addMessage({
-            text: 'Why you wasting my time fool',
-            action: 'stop', // Marks converation as unsuccessful
-        },'no_thread');
-
-        convo.addMessage({
-            text: 'GRRRR! Was that a `yes` or a `no`?',
-        },'bad_response');
-
-        // Create a yes/no question in the default thread...
-        convo.ask('So you\'re going to make a round of tea, are you?', [
+    bot.reply(message, {
+        'text': 'So you\'re going to make a round of tea, are you?',
+        'attachments': [
             {
-                pattern:  bot.utterances.yes,
-                callback: function(response, convo) {
-                    convo.stop();
-                    startMe(controller, bot, message);
-                },
-            },
-            {
-                pattern:  bot.utterances.no,
-                callback: function(response, convo) {
-                    convo.gotoThread('no_thread');
-                },
-            },
-            {
-                default: true,
-                callback: function(response, convo) {
-                    convo.gotoThread('bad_response');
-                },
+                'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
+                'color': '#f8b88b',
+                'callback_id': 'me',
+                'attachment_type': 'default',
+                'actions': [
+                    {
+                        'name': 'confirm_me',
+                        'text': 'Yes',
+                        'type': 'button',
+                        'value': 'yes'
+                    },
+                    {
+                        'name': 'confirm_me',
+                        'text': 'No',
+                        'type': 'button',
+                        'value': 'no'
+                    },
+                ]
             }
-        ]);
-
-        convo.activate();
-
+        ]
     });
 }
 
