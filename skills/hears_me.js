@@ -70,6 +70,9 @@ startMe = function(controller, bot, message) {
         });
     }
 
+    console.log("Drinks");
+    console.log(drinks);
+    console.log("Attachments")
     console.log(attachments);
 
     bot.reply(message, {
