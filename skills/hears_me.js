@@ -6,35 +6,29 @@ module.exports = function(controller) {
 
     controller.hears(['me'], 'direct_message,direct_mention,mention', function(bot, message) {
 
-        beginMe(controller, bot, message);
+        bot.reply(message, {
+            'text': 'So you\'re going to make a round of tea, are you?',
+            'attachments': [
+                {
+                    "attachment_type": "default",
+                    "actions": [
+                        {
+                            "name": "yes",
+                            "text": "Yes",
+                            "type": "button",
+                            "value": "me-yes"
+                        },
+                        {
+                            "name": "no",
+                            "text": "No",
+                            "type": "button",
+                            "value": "me-no"
+                        },
+                    ]
+                }
+            ]
+        });
 
     });
 
 }
-
-const beginMe = function(controller, bot, message) {
-    bot.reply(message, {
-        'text': 'So you\'re going to make a round of tea, are you?',
-        'attachments': [
-            {
-                "attachment_type": "default",
-                "actions": [
-                    {
-                        "name": "yes",
-                        "text": "Yes",
-                        "type": "button",
-                        "value": "me-yes"
-                    },
-                    {
-                        "name": "no",
-                        "text": "No",
-                        "type": "button",
-                        "value": "me-no"
-                    },
-                ]
-            }
-        ]
-    });
-}
-
-module.exports.beginMe = beginMe;
