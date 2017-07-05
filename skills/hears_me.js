@@ -1,5 +1,5 @@
 var config = require('../config.js');
-var startRound = require('../shared/start_round.js');
+var round = require('../shared/round.js');
 
 /**
  * When a user wants to make a round of tea themselves, they can use this
@@ -36,7 +36,7 @@ module.exports = function(controller) {
 
             bot.replyInteractive(trigger, response);
 
-            startRound.startMe(controller, bot, {
+            round.start(controller, bot, {
                 'team': trigger.team,
                 'user': trigger.user,
                 'channel': trigger.channel

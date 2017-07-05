@@ -1,6 +1,6 @@
 var config = require('../config.js');
 
-const startMe = function(controller, bot, message) {
+const start = function(controller, bot, message) {
     controller.storage.channels.get(message.channel, function(err, channel) {
         console.log("channel:");
         console.log(channel);
@@ -19,10 +19,18 @@ const startMe = function(controller, bot, message) {
     }
 
     bot.reply(message, {
-        'text': 'Okay great, <@' + message.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below:',
+        'text': '<@channel> - :tada: <@' + message.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below:',
         'attachments': attachments,
     });
-    // and now deliver cheese via tcp/ip...
+
+    setTimeout(function() {
+        end(controller, bot, message);
+    }, 4000)
 }
 
-module.exports.startMe = startMe;
+const end = function(controller, bot, message) {
+    bot.reply(message, 'AND THAT\'S IT');
+}
+
+module.exports.start = start;
+module.exports.end = end;
