@@ -18,7 +18,6 @@ const beginMe = function(controller, bot, message) {
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
-                'title': 'You sure about that?',
                 'color': '#f8b88b',
                 'callback_id': 'me',
                 'attachment_type': 'default',
