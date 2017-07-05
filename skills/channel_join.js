@@ -1,5 +1,7 @@
 var debug = require('debug')('botkit:channel_join');
 var help = require('../shared/help.js');
+console.log("HELP HELP HELP");
+console.log(help);
 
 module.exports = function(controller) {
 

@@ -1,11 +1,8 @@
 var help = require('../shared/help.js');
 
 module.exports = function(controller) {
-
     controller.hears(['assist'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-        bot.reply(message, help.getHelpMessage());
-
+        bot.reply(message, help);
     });
 
     // // This before middleware allows the help command to accept sub-thread names as a parameter

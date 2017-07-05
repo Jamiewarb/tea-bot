@@ -1,5 +1,3 @@
-var config = require('../shared/config.js');
-
 /**
  * When a user wants to make a round of tea themselves, they can use this
  */
