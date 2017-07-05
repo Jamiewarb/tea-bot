@@ -2,9 +2,9 @@ var help = require('../shared/help.js');
 
 module.exports = function(controller) {
 
-    controller.hears(['help me'], 'direct_message,direct_mention,mention', function(bot, message) {
+    controller.hears(['assist'], 'direct_message,direct_mention,mention', function(bot, message) {
 
-        bot.say(help.getHelpMessage());
+        bot.reply(message, help.getHelpMessage());
 
     });
 
