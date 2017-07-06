@@ -68,7 +68,7 @@ help.attachments = [
         'actions': [
             {
                 'name': 'my_brews',
-                'text': 'Show me my brews!',
+                'text': 'DM me my brews!',
                 'type': 'button',
                 'value': 'show'
             }

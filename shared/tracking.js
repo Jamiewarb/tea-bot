@@ -38,7 +38,7 @@ getMaker = function(channel) {
 }
 
 setMaker = function(channel, maker) {
-    tracking[channel][maker] = maker;
+    tracking[channel]['maker'] = maker;
     return tracking[channel].maker;
 }
 

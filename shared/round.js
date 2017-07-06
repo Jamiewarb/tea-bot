@@ -7,7 +7,7 @@ const start = function(controller, bot, source, type, maker) {
 
     tracking.activateChannel(source.channel, type);
 
-    if (type !== 'random') tracking.setMaker(maker);
+    if (type !== 'random') tracking.setMaker(source.channel, maker);
 
     let attachments = [];
     let drinks = config.drinks;
@@ -62,6 +62,7 @@ const end = function(controller, bot, source) {
     tracking.deactivateChannel(source.channel);
 
     let results = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~\n\n',
+        userResults = '',
         countDrinks = {},
         allUsers = [];
 
@@ -74,11 +75,11 @@ const end = function(controller, bot, source) {
 
         allUsers.push(user);
 
-        results += '<@' + user + '> would like ' + drink;
+        userResults += '<@' + user + '> would like ' + drink;
         if (message && message.length !== 0) {
-            results += ': "_' + message + '_"  ';
+            userResults += ': "_' + message + '_"  ';
         }
-        results += '  \n';
+        userResults += '  \n';
 
         if (countDrinks.hasOwnProperty(drink)) {
             countDrinks[drink] = countDrinks[drink] + 1;
@@ -87,7 +88,7 @@ const end = function(controller, bot, source) {
         }
     }
 
-    if (results.length === 0) {
+    if (userResults.length === 0) {
         bot.say({
             'text': 'Looks like nobody wants anything to drink!',
             'channel': source.channel
@@ -95,6 +96,7 @@ const end = function(controller, bot, source) {
         return;
     }
 
+    results += userResults;
     results += '\n>*Totals*:  \n';
 
     for (let drink in countDrinks) {
@@ -106,23 +108,31 @@ const end = function(controller, bot, source) {
         convo.say(results);
 
         if (type === 'random') {
-            let randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
-            convo.say('Now which of you fools is going to make these beverages?');
-            convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
+            let randomUser;
+            if (allUsers.length > 1) {
+                randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
+                convo.say('Now which of you fools is going to make these beverages?');
+                convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
+            } else {
+                randomUser = allUsers[0];
+                convo.say('Guess it\'s gonna have to be <@' + randomUser + '>');
+            }
             maker = randomUser;
         }
 
     });
 
-    statistics.addMade(maker, allUsers.length);
+    let makerMakes = allUsers.length;
 
     for (let i = 0; i < allUsers.length; i++) {
         if (allUsers[i] !== maker) {
             statistics.addDrank(allUsers[i], 1);
         } else {
-            statistics.addMade(maker, -1); // We don't count drinks made for yourself
+            makerMakes -= 1;
         }
     }
+
+    statistics.addMade(maker, makerMakes); // We don't count drinks made for yourself
 
 }
 
