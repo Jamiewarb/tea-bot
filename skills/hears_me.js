@@ -19,7 +19,7 @@ module.exports = function(controller) {
                 response.attachments = [{
                     'fallback': '<@' + trigger.user + '>: I\'ll do it!',
                     'text': '<@' + trigger.user + '>: I\'ll do it!',
-                    'color': config.optionSettings.me.color,
+                    'color': config.optionSettings.someone.color,
                 }];
                 bot.replyInteractive(trigger, response);
             }
@@ -47,7 +47,7 @@ module.exports = function(controller) {
                 'team': trigger.team,
                 'user': trigger.user,
                 'channel': trigger.channel
-            });
+            }, 'me');
 
         }
 

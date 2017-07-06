@@ -1,11 +1,11 @@
 var config = require('../config.js');
 var tracking = require('./tracking.js');
 
-const start = function(controller, bot, source) {
+const start = function(controller, bot, source, type) {
 
     if (tracking.channelActive(source.channel)) return false;
 
-    tracking.activateChannel(source.channel);
+    tracking.activateChannel(source.channel, type);
 
     let attachments = [];
     let drinks = config.drinks;
@@ -32,8 +32,15 @@ const start = function(controller, bot, source) {
         attachments.push(attachment);
     }
 
+    let text = '';
+    if (type === 'random') {
+        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and one of you will be randomly selected to make them!';
+    } else {
+        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below or click the buttons:';
+    }
+
     bot.say({
-        'text': '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below or click the buttons:',
+        'text': text,
         'attachments': attachments,
         'channel': source.channel
     });
@@ -46,11 +53,13 @@ const start = function(controller, bot, source) {
 
 const end = function(controller, bot, source) {
 
-    let choices = tracking.getChoices(source.channel);
+    let choices = tracking.getChoices(source.channel),
+        type = tracking.getType(source.channel);
     tracking.deactivateChannel(source.channel);
 
-    let results = '';
-    let countDrinks = {};
+    let results = '',
+        countDrinks = {},
+        allUsers = [];
 
     for (let userChoice in choices) {
         if (!choices.hasOwnProperty(userChoice)) continue; //skip if from prototype
@@ -58,6 +67,8 @@ const end = function(controller, bot, source) {
         let user = choices[userChoice].user,
             drink = choices[userChoice].drink,
             message = choices[userChoice].message;
+
+        allUsers.push(user);
 
         results += '<@' + user + '> wants ' + drink;
         if (message.length !== 0) {
@@ -86,9 +97,15 @@ const end = function(controller, bot, source) {
         results += drink + ': ' + countDrinks[drink] + '  \n';
     }
 
-    bot.say({
-        'text': results,
-        'channel': source.channel
+    bot.startConversation(message, function(err, convo) {
+
+        convo.say(results);
+
+        if (type === 'random') {
+            convo.say('Now which of you fools is going to make these beverages?');
+            convo.say('Looks like it\'s gonna be... <@' + allUsers[Math.floor(Math.random() * allUsers.length)] + '>');
+        }
+
     });
 
 }

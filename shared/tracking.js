@@ -3,6 +3,7 @@ var tracking = {};
 /**
  * {
  *     C654E7VDM: {
+ *         type: 'me' | 'random'
  *         U2UB89MH7: {
  *             user: U2UB89MH7,
  *             drink: tea
@@ -19,9 +20,15 @@ channelActive = function(channel) {
     return tracking.hasOwnProperty(channel);
 }
 
-activateChannel = function(channel) {
-    tracking[channel] = {};
+activateChannel = function(channel, type) {
+    tracking[channel] = {
+        'type': type
+    };
     return channelActive(channel);
+}
+
+getType = function(channel) {
+    return tracking[channel].type;
 }
 
 getChoices = function(channel) {
@@ -50,6 +57,7 @@ cancelUser = function(channel, user) {
 module.exports.getTracking = getTracking;
 module.exports.channelActive = channelActive;
 module.exports.activateChannel = activateChannel;
+module.exports.getType = getType;
 module.exports.getChoices = getChoices;
 module.exports.deactivateChannel = deactivateChannel;
 module.exports.addItem = addItem;
