@@ -11,10 +11,15 @@ module.exports = function(controller) {
     }
 
     controller.hears(triggers, 'direct_mention,mention,ambient', function(bot, message) {
-        if (tracking.channelActive(source.channel)) {
-            let drink = message.text.substr(0, message.text.indexOf(" ")),
-                comment = message.text.substr(drink.length);
+        if (tracking.channelActive(message.channel)) {
+            let comment = '';
+                drink = message.text;
+            if (message.text.indexOf(' ') > 0) {
+                drink = message.text.substr(0, message.text.indexOf(' '));
+                comment = message.text.substr(drink.length + 1);
+            }
             tracking.addItem(message.channel, message.user, drink, comment);
+            bot.reply(message, 'A ' + drink + ' is it?');
         }
     });
 }
