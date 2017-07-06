@@ -1,7 +1,7 @@
 var config = {};
 
 config.settings = {
-    'timer': 6000,
+    'timer': 120000,
 }
 
 config.drinks = {
