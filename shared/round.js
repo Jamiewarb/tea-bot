@@ -12,20 +12,31 @@ const start = function(controller, bot, source) {
 
     for (let drink in drinks) {
         if (!drinks.hasOwnProperty(drink)) continue; //skip if from prototype
-        attachments.push({
+        let attachment = {
             'fallback': drinks[drink].option,
             'title': drinks[drink].option,
             'color': drinks[drink].color
-        });
+        };
+        if (drink !== 'other') {
+            attachment.callback_id = 'choose_drink';
+            attachment.attachment_type = 'default';
+            attachment.actions = [
+                {
+                    'name': 'say',
+                    'text': drinks[drink].name + ' please',
+                    'type': 'button',
+                    'value': drink
+                }
+            ];
+        }
+        attachments.push(attachment);
     }
 
     bot.say({
-        'text': '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below:',
+        'text': '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below or click the buttons:',
         'attachments': attachments,
         'channel': source.channel
     });
-
-    tracking.addItem(source.channel, source.user, 'tea', 'bork');
 
     setTimeout(function() {
         end(controller, bot, source);
