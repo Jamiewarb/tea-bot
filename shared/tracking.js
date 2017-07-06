@@ -3,6 +3,7 @@ var tracking = {};
 /**
  * {
  *     C654E7VDM: {
+ *         'tracking': {'afsgsdgd', ..., ...},
  *         U2UB89MH7: {
  *             user: U2UB89MH7,
  *             drink: tea
@@ -22,6 +23,17 @@ channelActive = function(channel) {
 activateChannel = function(channel) {
     tracking[channel] = {};
     return channelActive(channel);
+}
+
+// activateChannel = function(channel, trigger) {
+//     tracking[channel] = {
+//         'trigger': trigger
+//     };
+//     return channelActive(channel);
+// }
+
+getTrigger = function(channel) {
+    return tracking[channel].trigger;
 }
 
 getChoices = function(channel) {
