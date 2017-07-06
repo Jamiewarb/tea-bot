@@ -21,7 +21,7 @@ module.exports = function(controller) {
         }
         tracking.addItem(message.channel, message.user, drink, comment);
         bot.reply(message, {
-            'text': '<@' + message.user + '> would like a ' + drink
+            'text': '<@' + message.user + '> would like ' + drink
         });
     });
 }
