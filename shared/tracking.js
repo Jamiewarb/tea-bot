@@ -3,10 +3,13 @@ var tracking = {};
 /**
  * {
  *     C654E7VDM: {
- *         type: 'me' | 'random'
- *         U2UB89MH7: {
- *             user: U2UB89MH7,
- *             drink: tea
+ *         type: 'me' | 'random',
+ *         choices: {
+ *             U2UB89MH7: {
+ *                 user: 'U2UB89MH7',
+ *                 drink: 'tea'
+ *                 message: 'bork'
+ *             }
  *         }
  *     }
  * }
@@ -22,7 +25,8 @@ channelActive = function(channel) {
 
 activateChannel = function(channel, type) {
     tracking[channel] = {
-        'type': type
+        'type': type,
+        'choices': {},
     };
     return channelActive(channel);
 }
@@ -32,7 +36,7 @@ getType = function(channel) {
 }
 
 getChoices = function(channel) {
-    return tracking[channel];
+    return tracking[channel].choices;
 }
 
 deactivateChannel = function(channel) {
@@ -41,17 +45,17 @@ deactivateChannel = function(channel) {
 }
 
 addItem = function(channel, user, drink, message) {
-    tracking[channel][user] = {
+    tracking[channel].choices[user] = {
         'user': user,
         'drink': drink,
         'message': message
     };
-    return tracking[channel][user].drink;
+    return tracking[channel].choices[user].drink;
 }
 
 cancelUser = function(channel, user) {
-    delete tracking[channel][user];
-    return !tracking[channel].hasOwnProperty(user);
+    delete tracking[channel].choices[user];
+    return !tracking[channel].choices.hasOwnProperty(user);
 }
 
 module.exports.getTracking = getTracking;
