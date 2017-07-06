@@ -5,6 +5,8 @@ const start = function(controller, bot, source) {
 
     if (tracking.channelActive(source.channel)) return false;
 
+    tracking.activateChannel(source.channel);
+
     let attachments = [];
     let drinks = config.drinks;
 
@@ -34,12 +36,7 @@ const start = function(controller, bot, source) {
         'text': '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below or click the buttons:',
         'attachments': attachments,
         'channel': source.channel
-    }, function(err, response) {
-        console.log(response);
-        //tracking.activateChannel(source.channel);
     });
-
-
 
     setTimeout(function() {
         end(controller, bot, source);

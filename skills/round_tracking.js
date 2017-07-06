@@ -20,9 +20,5 @@ module.exports = function(controller) {
             comment = message.text.substr(drink.length + 1);
         }
         tracking.addItem(message.channel, message.user, drink, comment);
-
-        //let trigger = tracking.getTrigger(message.channel);
-
-        //bot.replyInteractive(trigger, response);
     });
 }
