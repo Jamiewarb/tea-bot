@@ -30,13 +30,33 @@ help.attachments = [
         'fallback': 'someone - Ask politely if someone will start a round of tea',
         'title': 'someone',
         'text': 'Ask politely if someone will start a round of tea',
-        'color': config.optionSettings.someone.color
+        'color': config.optionSettings.someone.color,
+        'callback_id': 'assist_action',
+        'attachment_type': 'default',
+        'actions': [
+            {
+                'name': 'start_someone',
+                'text': 'Please make some tea',
+                'type': 'button',
+                'value': 'start'
+            }
+        ]
     },
     {
         'fallback': 'random - Start a round of tea, and randomly pick the fool to make it',
         'title': 'random',
         'text': 'Start a round of tea, and randomly pick the fool to make it',
-        'color': config.optionSettings.random.color
+        'color': config.optionSettings.random.color,
+        'callback_id': 'assist_action',
+        'attachment_type': 'default',
+        'actions': [
+            {
+                'name': 'start_random',
+                'text': 'Who\'ll make the tea?',
+                'type': 'button',
+                'value': 'start'
+            }
+        ]
     },
     {
         'fallback': 'my brews - View your own brewing statistics',
