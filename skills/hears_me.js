@@ -8,14 +8,18 @@ var tracking = require('../shared/tracking.js');
 
 module.exports = function(controller) {
     controller.hears(['^me'], 'direct_mention,mention', function(bot, message) {
-        if (tracking.channelActive(message.channel)) {
-            bot.reply(message, '<@' + message.user + '> there\'s already a tea round active in this channel')
-            return false;
-        }
         confirmMe(controller, bot, message);
     });
 
     controller.on('interactive_message_callback', function(bot, trigger) {
+
+        if (trigger.actions[0].name.match(/^start_me$/)) {
+            confirmMe(controller, bot, {
+                'team': trigger.team,
+                'user': trigger.user,
+                'channel': trigger.channel
+            });
+        }
 
         if (trigger.actions[0].name.match(/^confirm_me$/)) {
 
@@ -73,6 +77,10 @@ const respondMe = function(bot, trigger, response, outcome) {
 }
 
 const confirmMe = function(controller, bot, message) {
+    if (tracking.channelActive(message.channel)) {
+        bot.reply(message, '<@' + message.user + '> there\'s already a tea round active in this channel')
+        return false;
+    }
     bot.reply(message, {
         'text': '<@' + message.user + '>, you\'re going to make a round of tea, are you?',
         'attachments': [

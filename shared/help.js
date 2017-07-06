@@ -8,7 +8,17 @@ help.attachments = [
         'fallback': 'me - Start a round of tea with you as the fool that makes them',
         'title': 'me',
         'text': 'Start a round of tea with you as the fool that makes them',
-        'color': config.optionSettings.me.color
+        'color': config.optionSettings.me.color,
+        'callback_id': 'assist_action',
+        'attachment_type': 'default',
+        'actions': [
+            {
+                'name': 'start_me',
+                'text': 'I\'ll make the tea',
+                'type': 'button',
+                'value': 'start'
+            }
+        ]
     },
     {
         'fallback': 'you <user> - Start a round of tea, and pick the fool to make it',

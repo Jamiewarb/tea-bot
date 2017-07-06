@@ -40,7 +40,7 @@ const start = function(controller, bot, source) {
 
     setTimeout(function() {
         end(controller, bot, source);
-    }, 4000); // @TODO 120000
+    }, 120000);
 
 }
 
