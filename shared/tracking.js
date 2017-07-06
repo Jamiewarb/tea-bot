@@ -1,9 +1,10 @@
 var tracking = {};
 
 /**
- * {
+ * tracking = {
  *     C654E7VDM: {
  *         type: 'me' | 'random',
+ *         maker: 'U2UB89MH7',
  *         choices: {
  *             U2UB89MH7: {
  *                 user: 'U2UB89MH7',
@@ -26,9 +27,19 @@ channelActive = function(channel) {
 activateChannel = function(channel, type) {
     tracking[channel] = {
         'type': type,
+        'maker': '',
         'choices': {},
     };
     return channelActive(channel);
+}
+
+getMaker = function(channel) {
+    return tracking[channel].maker;
+}
+
+setMaker = function(channel, maker) {
+    tracking[channel][maker] = maker;
+    return tracking[channel].maker;
 }
 
 getType = function(channel) {
@@ -61,6 +72,8 @@ cancelUser = function(channel, user) {
 module.exports.getTracking = getTracking;
 module.exports.channelActive = channelActive;
 module.exports.activateChannel = activateChannel;
+module.exports.getMaker = getMaker;
+module.exports.setMaker = setMaker;
 module.exports.getType = getType;
 module.exports.getChoices = getChoices;
 module.exports.deactivateChannel = deactivateChannel;

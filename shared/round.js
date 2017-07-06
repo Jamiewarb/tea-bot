@@ -1,11 +1,13 @@
 var config = require('../config.js');
 var tracking = require('./tracking.js');
+var statistics = require('../skills/statistics.js');
 
-const start = function(controller, bot, source, type) {
-
+const start = function(controller, bot, source, type, maker) {
     if (tracking.channelActive(source.channel)) return false;
 
     tracking.activateChannel(source.channel, type);
+
+    if (type !== 'random') tracking.setMaker(maker);
 
     let attachments = [];
     let drinks = config.drinks;
@@ -54,10 +56,12 @@ const start = function(controller, bot, source, type) {
 const end = function(controller, bot, source) {
 
     let choices = tracking.getChoices(source.channel),
-        type = tracking.getType(source.channel);
+        type = tracking.getType(source.channel),
+        maker = tracking.getMaker(source.channel);
+
     tracking.deactivateChannel(source.channel);
 
-    let results = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~  \n',
+    let results = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~\n\n',
         countDrinks = {},
         allUsers = [];
 
@@ -102,11 +106,23 @@ const end = function(controller, bot, source) {
         convo.say(results);
 
         if (type === 'random') {
+            let randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
             convo.say('Now which of you fools is going to make these beverages?');
-            convo.say('Looks like it\'s gonna be... <@' + allUsers[Math.floor(Math.random() * allUsers.length)] + '>');
+            convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
+            maker = randomUser;
         }
 
     });
+
+    statistics.addMade(maker, allUsers.length);
+
+    for (let i = 0; i < allUsers.length; i++) {
+        if (allUsers[i] !== maker) {
+            statistics.addDrank(allUsers[i], 1);
+        } else {
+            statistics.addMade(maker, -1); // We don't count drinks made for yourself
+        }
+    }
 
 }
 

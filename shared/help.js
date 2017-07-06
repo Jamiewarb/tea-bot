@@ -62,7 +62,17 @@ help.attachments = [
         'fallback': 'my brews - View your own brewing statistics',
         'title': 'my brews',
         'text': 'View your own brewing statistics',
-        'color': config.optionSettings.brews.color
+        'color': config.optionSettings.brews.color,
+        'callback_id': 'assist_action',
+        'attachment_type': 'default',
+        'actions': [
+            {
+                'name': 'my_brews',
+                'text': 'Show me my brews!',
+                'type': 'button',
+                'value': 'show'
+            }
+        ]
     },
     {
         'fallback': 'teaderboard - View the Teaderboard',

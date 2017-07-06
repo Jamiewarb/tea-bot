@@ -47,7 +47,7 @@ module.exports = function(controller) {
                 'team': trigger.team,
                 'user': trigger.user,
                 'channel': trigger.channel
-            }, 'me');
+            }, 'me', trigger.user);
 
         }
 
