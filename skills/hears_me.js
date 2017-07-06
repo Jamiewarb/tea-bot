@@ -14,6 +14,15 @@ module.exports = function(controller) {
     controller.on('interactive_message_callback', function(bot, trigger) {
 
         if (trigger.actions[0].name.match(/^start_me$/)) {
+            if (trigger.callback_id === 'someone') {
+                let response = trigger.original_message;
+                response.attachments = [{
+                    'fallback': '<@' + trigger.user + '>: I\'ll do it!',
+                    'text': '<@' + trigger.user + '>: I\'ll do it!',
+                    'color': config.optionSettings.me.color,
+                }];
+                bot.replyInteractive(trigger, response);
+            }
             confirmMe(controller, bot, {
                 'team': trigger.team,
                 'user': trigger.user,
@@ -50,13 +59,13 @@ const respondMe = function(bot, trigger, response, outcome) {
         response.attachments = [{
             'fallback': 'The answer was ' + trigger.actions[0].value,
             'text': '<@' + trigger.user + '>: Yes',
-            'color': '#f8b88b',
+            'color': config.optionSettings.me.color,
         }];
     } else if (outcome === 'active') {
         response.attachments = [{
             'fallback': 'Already in progress',
             'text': 'Round already in progress',
-            'color': '#f8b88b',
+            'color': config.optionSettings.me.color,
         }];
         bot.say({
             'text': '<@' + trigger.user + '> there\'s already a tea round active in this channel',
@@ -66,7 +75,7 @@ const respondMe = function(bot, trigger, response, outcome) {
         response.attachments = [{
             'fallback': 'The answer was ' + trigger.actions[0].value,
             'text': '<@' + trigger.user + '>: No',
-            'color': '#f8b88b',
+            'color': config.optionSettings.me.color,
         }];
         bot.say({
             'text': 'I pity the fool that changes his mind!',
@@ -86,7 +95,7 @@ const confirmMe = function(controller, bot, message) {
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
-                'color': '#f8b88b',
+                'color': config.optionSettings.me.color,
                 'callback_id': 'me',
                 'attachment_type': 'default',
                 'actions': [

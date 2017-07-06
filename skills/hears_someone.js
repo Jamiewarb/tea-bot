@@ -1,3 +1,4 @@
+var config = require('../config.js');
 var tracking = require('../shared/tracking.js');
 
 /**
@@ -32,8 +33,8 @@ const askSomeone = function(controller, bot, message) {
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
-                'color': '#f8b88b',
-                'callback_id': 'me',
+                'color': config.optionSettings.someone.color,
+                'callback_id': 'someone',
                 'attachment_type': 'default',
                 'actions': [
                     {
