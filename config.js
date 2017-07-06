@@ -1,5 +1,9 @@
 var config = {};
 
+config.settings = {
+    'timer': 6000,
+}
+
 config.drinks = {
     'tea': {
         'name': 'Tea',

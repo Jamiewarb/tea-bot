@@ -47,7 +47,7 @@ const start = function(controller, bot, source, type) {
 
     setTimeout(function() {
         end(controller, bot, source);
-    }, 120000);
+    }, config.settings.timer);
 
 }
 
