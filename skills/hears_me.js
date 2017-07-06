@@ -91,7 +91,7 @@ const confirmMe = function(controller, bot, message) {
         return false;
     }
     bot.reply(message, {
-        'text': '<@' + message.user + '>, you\'re going to make a round of tea, are you?',
+        'text': ':coffee: <@' + message.user + '>, you\'re going to make a round of tea, are you?',
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',

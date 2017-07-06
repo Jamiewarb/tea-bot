@@ -57,7 +57,7 @@ const end = function(controller, bot, source) {
         type = tracking.getType(source.channel);
     tracking.deactivateChannel(source.channel);
 
-    let results = '',
+    let results = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~  \n',
         countDrinks = {},
         allUsers = [];
 
@@ -70,7 +70,7 @@ const end = function(controller, bot, source) {
 
         allUsers.push(user);
 
-        results += '<@' + user + '> wants ' + drink;
+        results += '<@' + user + '> would like ' + drink;
         if (message && message.length !== 0) {
             results += ': "_' + message + '_"  ';
         }
@@ -91,10 +91,10 @@ const end = function(controller, bot, source) {
         return;
     }
 
-    results += '\n*Totals*:  \n';
+    results += '\n>*Totals*:  \n';
 
     for (let drink in countDrinks) {
-        results += drink + ': ' + countDrinks[drink] + '  \n';
+        results += '>' + drink + ': ' + countDrinks[drink] + '  \n';
     }
 
     bot.startConversation(source, function(err, convo) {

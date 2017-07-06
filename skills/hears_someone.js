@@ -29,7 +29,7 @@ const askSomeone = function(controller, bot, message) {
         return false;
     }
     bot.reply(message, {
-        'text': '<@' + message.user + '> would really like someone to make a cup of tea?',
+        'text': ':pray: <@' + message.user + '> would really like someone to make a cup of tea?',
         'attachments': [
             {
                 'fallback': 'Looks like you\'re unable to make tea I\'m afraid',
