@@ -71,7 +71,7 @@ const end = function(controller, bot, source) {
         allUsers.push(user);
 
         results += '<@' + user + '> wants ' + drink;
-        if (message.length !== 0) {
+        if (message && message.length !== 0) {
             results += ': "_' + message + '_"  ';
         }
         results += '  \n';
@@ -97,7 +97,7 @@ const end = function(controller, bot, source) {
         results += drink + ': ' + countDrinks[drink] + '  \n';
     }
 
-    bot.startConversation(message, function(err, convo) {
+    bot.startConversation(source, function(err, convo) {
 
         convo.say(results);
 
