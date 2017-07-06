@@ -20,12 +20,12 @@ help.attachments = [
             }
         ]
     },
-    {
-        'fallback': 'you <user> - Start a round of tea, and pick the fool to make it',
-        'title': 'you <user>',
-        'text': 'Start a round of tea, and pick the fool to make it',
-        'color': config.optionSettings.you.color
-    },
+    // {
+    //     'fallback': 'you <user> - Start a round of tea, and pick the fool to make it',
+    //     'title': 'you <user>',
+    //     'text': 'Start a round of tea, and pick the fool to make it',
+    //     'color': config.optionSettings.you.color
+    // },
     {
         'fallback': 'someone - Ask politely if someone will start a round of tea',
         'title': 'someone',
@@ -74,12 +74,22 @@ help.attachments = [
             }
         ]
     },
-    {
-        'fallback': 'teaderboard - View the Teaderboard',
-        'title': 'teaderboard',
-        'text': 'View the Teaderboard',
-        'color': config.optionSettings.teaderboard.color
-    },
+    // {
+    //     'fallback': 'teaderboard - View the Teaderboard',
+    //     'title': 'teaderboard',
+    //     'text': 'View the Teaderboard',
+    //     'color': config.optionSettings.teaderboard.color,
+    //     'callback_id': 'assist_action',
+    //     'attachment_type': 'default',
+    //     'actions': [
+    //         {
+    //             'name': 'teaderboard',
+    //             'text': 'DM me my brews!',
+    //             'type': 'button',
+    //             'value': 'show'
+    //         }
+    //     ]
+    // },
     {
         'fallback': 'assist - View all these commands again',
         'title': 'assist',
