@@ -11,6 +11,10 @@ module.exports = function(controller) {
     }
 
     controller.hears(triggers, 'direct_mention,mention,ambient', function(bot, message) {
-        bot.reply(message, 'I hear ya, I hear ya');
+        if (tracking.channelActive(source.channel)) {
+            let drink = message.text.substr(0, message.text.indexOf(" ")),
+                comment = message.text.substr(drink.length);
+            tracking.addItem(message.channel, message.user, drink, comment);
+        }
     });
 }
