@@ -8,7 +8,10 @@ All notable changes to this project are documented here, and adheres to
 *Enhancements:*
 * Added term `brewlette` which also starts random mode, for super sexy flair.
 
-## [Tea Bot Release v1.0.0 🎉](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.0.0)
+*Miscellaneous:*
+* Added dates into the changelog
+
+## [Tea Bot Release v1.0.0 🎉](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.0.0) - 7th July 2017
 
 I'm proud to release the first major version of tea bot!
 
