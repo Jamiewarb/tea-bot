@@ -91,8 +91,8 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
                    'RANK    NAME           MADE    RECEIVED  \n';
         let sortedUserIDsLength = sortedUserIDs.length;
         for (let i = 0; i < sortedUserIDsLength; i++) {
-            text += rank + '      <@' + sortedUserIDsLength[i].id + '> ' +
-                    sortedUserIDsLength[i].made + '  ' + sortedUserIDsLength[i].drank + '  \n';
+            text += rank + '      <@' + sortedUserIDs[i].id + '> ' +
+                    sortedUserIDs[i].made + '  ' + sortedUserIDs[i].drank + '  \n';
             rank++;
         }
         text += '```';
@@ -114,7 +114,6 @@ function rankTeaderboard(allUserData) {
         if (userData.hasOwnProperty('id') && userData.id.length > 0 &&
             userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
             console.log("~~~~~~~~ PUSH RANK ~~~~~~~~");
-            console.log("~~~~~~~~ log log log log log ~~~~~~~~");
             sortedUserIDs.push({
                 'id': userData.id,
                 'made': userData.drinks.made,
