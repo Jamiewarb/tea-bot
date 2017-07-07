@@ -3,6 +3,10 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.1.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.1)
+*Bug Fixes:*
+* Fixed a bug where the bot wouldn't start because tracking info wasn't loaded in the random skill
+
 ## [v1.1.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.0)
 
 *Enhancements:*
