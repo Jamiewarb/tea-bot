@@ -101,13 +101,13 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
         let sortedUserIDsLength = sortedUserIDs.length;
         for (let i = 0; i < sortedUserIDsLength; i++) {
             let rank = formatStat(currentRank.toString(), maxRankLength, 'left'),
-                made = formatStat(sortedUserIDs[i].made.toString(), maxMadeLength, 'center'),
-                drank = formatStat(sortedUserIDs[i].drank.toString(), maxReceivedLength, 'center'),
+                made = formatStat(sortedUserIDs[i].made.toString(), maxMadeLength, 'left'),
+                drank = formatStat(sortedUserIDs[i].drank.toString(), maxReceivedLength, 'left'),
                 name = formatStat('<@' + sortedUserIDs[i].id + '>', maxNameLength, 'left');
 
-            text += rank + pad(maxRankLength - rank.length, ' ') + pad(maxRankLength - titles.rank.length, ' ') + titles.separator +
-                    made + pad(maxMadeLength - made.length, ' ') + pad(maxMadeLength - titles.made.length, ' ') + titles.separator +
-                    drank + pad(maxReceivedLength - drank.length, ' ') + pad(maxReceivedLength - titles.drank.length, ' ') + titles.separator +
+            text += rank + pad(titles.rank.length - maxRankLength, ' ') + titles.separator +
+                    made + pad(titles.made.length - maxMadeLength, ' ') + titles.separator +
+                    drank + pad(titles.drank.length - maxReceivedLength, ' ') + titles.separator +
                     name +  '  \n';
             currentRank++;
         }
