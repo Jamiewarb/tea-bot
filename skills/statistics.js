@@ -94,6 +94,7 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
 function rankTeaderboard(allUserData) {
     console.log("~~~~~~~~ RANK TEADERBOARD FUNCTION CALL ~~~~~~~~");
     let sortedUserIDs = [];
+    console.log(allUserData);
     let userDataLength = allUserData.length;
     console.log("~~~~~~~~ OPEN RANK LOOP ~~~~~~~~");
     for (let i = 0; i < userDataLength; i++) {
