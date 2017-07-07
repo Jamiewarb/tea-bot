@@ -62,58 +62,94 @@ const resetUser = function(userStorage) {
 }
 
 const displayTeaderboard = function(bot, message) {
-    console.log("~~~~~~~~ DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
     controller.storage.users.all(function(err, allUserData) {
-        console.log("~~~~~~~~ ALL USERS STORAGE CALL ~~~~~~~~");
         if (allUserData === undefined) {
-            console.log("~~~~~~~~ UNDEFINED ALL USERS STORAGE - RETURNING ~~~~~~~~");
         } else {
             if (allUserData !== null) {
-                console.log(allUserData);
                 let sortedUserIDs = rankTeaderboard(allUserData);
                 outputTeaderboard(bot, message, sortedUserIDs);
             } else {
                 bot.reply(message, 'Looks like there\'s no teaderboard data yet! Go make some tea!');
             }
         }
-        console.log("~~~~~~~~ END USERS STORAGE CALL ~~~~~~~~");
     });
-    console.log("~~~~~~~~ FINISH DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
 }
 
 function outputTeaderboard(bot, message, sortedUserIDs) {
-    console.log("~~~~~~~~ OUTPUT TEADERBOARD FUNCTION CALL ~~~~~~~~");
     bot.startConversation(message, function(err, convo) {
-        console.log("~~~~~~~~ BEGIN GENERATING OUTPUT ~~~~~~~~");
-        let rank = 1;
-        let text = '```  \n' +
-                   '-=-=-=-=-=-=- TEADERBOARD -=-=-=-=-=-=- \n' +
-                   'RANK    NAME           MADE    RECEIVED  \n';
+        let currentRank = 1,
+            maxRankLength = 3,
+            maxNameLength = 20,
+            maxMadeLength = 5,
+            maxReceivedLength = 5,
+            titles = {};
+
+        titles.main = '-=-=-=-=-=-=- TEADERBOARD -=-=-=-=-=-=-';
+        titles.rank = 'RANK';
+        titles.name = 'NAME';
+        titles.made = 'MADE';
+        titles.drank = 'RECEIVED';
+        titles.separator = '  ';
+
+        let text = '```' + titles.main + '  \n';
+
+        text += titles.rank + pad(maxRankLength - titles.rank.length, ' ') + titles.separator +
+                titles.name + pad(maxNameLength - titles.name.length, ' ') + titles.separator +
+                titles.made + pad(maxMadeLength - titles.made.length, ' ') + titles.separator +
+                titles.drank;
+
         let sortedUserIDsLength = sortedUserIDs.length;
         for (let i = 0; i < sortedUserIDsLength; i++) {
-            text += rank + '      <@' + sortedUserIDs[i].id + '> ' +
-                    sortedUserIDs[i].made + '  ' + sortedUserIDs[i].drank + '  \n';
-            rank++;
+            let rank = formatStat(currentRank, maxRankLength, 'right'),
+                name = formatStat('<@' + sortedUserIDs[i].id + '>', maxNameLength, 'left'),
+                made = formatStat(sortedUserIDs[i].made, maxMadeLength, 'center'),
+                drank = formatStat(sortedUserIDs[i].drank, maxReceivedLength, 'center');
+
+            text += rank + pad(titles.rank.length - maxRankLength, ' ') + titles.separator +
+                    name + pad(titles.name.length - maxNameLength, ' ') + titles.separator +
+                    made + pad(titles.made.length - maxMadeLength, ' ') + titles.separator +
+                    drank + '  \n';
+            currentRank++;
         }
+
         text += '```';
-        console.log("~~~~~~~~ FINISH GENERATING OUTPUT ~~~~~~~~");
         convo.say(text);
-        console.log("~~~~~~~~ FINISH SAY OUTPUT ~~~~~~~~");
     });
 }
 
+function formatStat(string, length, alignment) {
+    if (string.length > length) {
+        return string.substr(0, length);
+    }
+    if (string.length < length) {
+        switch (alignment) {
+            case 'left':
+                return string + pad(length - string.length, ' ');
+            case 'right':
+                return pad(length - string.length, ' ') + string;
+            case 'center':
+                let halfLength = (length - string.length) / 2;
+                if (string.length % 2 === 0) {
+                    return pad(halfLength, ' ') + string + pad(halfLength, ' ');
+                }
+                return pad(halfLength - 1, ' ') + string + pad(halfLength, ' ');
+        }
+    }
+    return string;
+}
+
+function pad(count, with) {
+    if (count < 1) return '';
+    return with.repeat(count);
+}
+
 function rankTeaderboard(allUserData) {
-    console.log("~~~~~~~~ RANK TEADERBOARD FUNCTION CALL ~~~~~~~~");
     let sortedUserIDs = [];
-    console.log(allUserData);
     let userDataLength = allUserData.length;
-    console.log("LENGTH: " + userDataLength);
-    console.log("~~~~~~~~ OPEN RANK LOOP ~~~~~~~~");
     for (let i = 0; i < userDataLength; i++) {
         let userData = allUserData[i];
         if (userData.hasOwnProperty('id') && userData.id.length > 0 &&
             userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
-            console.log("~~~~~~~~ PUSH RANK ~~~~~~~~");
             sortedUserIDs.push({
                 'id': userData.id,
                 'made': userData.drinks.made,
@@ -121,13 +157,9 @@ function rankTeaderboard(allUserData) {
                 'score': userData.drinks.made,
                 'teaDifference': userData.drinks.made - userData.drinks.drank,
             });
-            console.log("~~~~~~~~ FINISH PUSH RANK ~~~~~~~~");
         }
     }
-    console.log("~~~~~~~~ START SORT ~~~~~~~~");
     sortedUserIDs.sort(sortTeaScores);
-    console.log("~~~~~~~~ FINISH SORT ~~~~~~~~");
-    console.log("~~~~~~~~ FINISH RANK TEADERBOARD FUNCTION CALL ~~~~~~~~");
     return sortedUserIDs;
 }
 
