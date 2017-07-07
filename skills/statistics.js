@@ -115,13 +115,13 @@ function rankTeaderboard(allUserData) {
             userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
             console.log("~~~~~~~~ PUSH RANK ~~~~~~~~");
             sortedUserIDs.push({
-                'test': 'test',
-                // 'id': userData.id,
-                // 'made': userData.drinks.made,
-                // 'drank': userData.drinks.drank,
-                // 'score': userData.drinks.made,
-                // 'teaDifference': userData.drinks.made - userdata.drink.drank,
+                'test': 'test'
             });
+            // 'id': userData.id,
+            // 'made': userData.drinks.made,
+            // 'drank': userData.drinks.drank,
+            // 'score': userData.drinks.made,
+            // 'teaDifference': userData.drinks.made - userdata.drink.drank,
             console.log("~~~~~~~~ FINISH PUSH RANK ~~~~~~~~");
         }
     }
