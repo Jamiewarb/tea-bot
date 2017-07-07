@@ -165,10 +165,9 @@ function rankTeaderboard(allUserData) {
 
 function sortTeaScores(a, b) {
     if (a.score !== b.score) {
-        return a.score - b.score;
-    } else {
-        return a.teaDifference - b.teaDifference;
+        return b.score - a.score;
     }
+    return b.teaDifference - a.teaDifference;
 }
 
 module.exports.addDrank = addDrank;
