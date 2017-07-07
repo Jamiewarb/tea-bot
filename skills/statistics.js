@@ -129,7 +129,7 @@ function formatStat(string, length, alignment) {
                 return pad(length - string.length, ' ') + string;
             case 'center':
                 let halfLength = (length - string.length) / 2;
-                if (string.length % 2 === 0) {
+                if ((string.length % 2) === 0) {
                     return pad(halfLength, ' ') + string + pad(halfLength, ' ');
                 }
                 return pad(halfLength - 1, ' ') + string + pad(halfLength, ' ');
@@ -138,9 +138,9 @@ function formatStat(string, length, alignment) {
     return string;
 }
 
-function pad(count, with) {
+function pad(count, string) {
     if (count < 1) return '';
-    return with.repeat(count);
+    return string.repeat(count);
 }
 
 function rankTeaderboard(allUserData) {
