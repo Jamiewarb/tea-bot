@@ -67,7 +67,6 @@ const displayTeaderboard = function(bot, message) {
         console.log("~~~~~~~~ ALL USERS STORAGE CALL ~~~~~~~~");
         if (allUserData === undefined) {
             console.log("~~~~~~~~ UNDEFINED ALL USERS STORAGE - RETURNING ~~~~~~~~");
-            return;
         } else {
             if (allUserData !== null) {
                 console.log(allUserData);
