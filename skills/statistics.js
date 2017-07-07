@@ -100,10 +100,10 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
 
         let sortedUserIDsLength = sortedUserIDs.length;
         for (let i = 0; i < sortedUserIDsLength; i++) {
-            let rank = formatStat(currentRank, maxRankLength, 'right'),
-                name = formatStat('<@' + sortedUserIDs[i].id + '>', maxNameLength, 'left'),
-                made = formatStat(sortedUserIDs[i].made, maxMadeLength, 'center'),
-                drank = formatStat(sortedUserIDs[i].drank, maxReceivedLength, 'center');
+            let rank = formatStat(currentRank.toString(), maxRankLength, 'left'),
+                made = formatStat(sortedUserIDs[i].made.toString(), maxMadeLength, 'center'),
+                drank = formatStat(sortedUserIDs[i].drank.toString(), maxReceivedLength, 'center'),
+                name = formatStat('<@' + sortedUserIDs[i].id + '>', maxNameLength, 'left');
 
             text += rank + pad(maxRankLength - rank.length, ' ') + titles.separator +
                     made + pad(maxMadeLength - made.length, ' ') + titles.separator +
