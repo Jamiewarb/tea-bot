@@ -96,10 +96,12 @@ function rankTeaderboard(allUserData) {
     let sortedUserIDs = [];
     console.log(allUserData);
     let userDataLength = allUserData.length;
+    console.log("LENGTH: " + userDataLength);
     console.log("~~~~~~~~ OPEN RANK LOOP ~~~~~~~~");
     for (let i = 0; i < userDataLength; i++) {
         let userData = allUserData[i];
-        if (userData.hasOwnProperty('id') && userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
+        if (userData.hasOwnProperty('id') && userData.id.length > 0 &&
+            userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
             console.log("~~~~~~~~ PUSH RANK ~~~~~~~~");
             sortedUserIDs.push({
                 'id': userData.id,
