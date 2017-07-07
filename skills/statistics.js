@@ -112,10 +112,10 @@ function rankTeaderboard(allUserData) {
             });
             console.log("~~~~~~~~ FINISH PUSH RANK ~~~~~~~~");
         }
-        console.log("~~~~~~~~ START SORT ~~~~~~~~");
-        sortedUserIDs.sort(sortTeaScores);
-        console.log("~~~~~~~~ FINISH SORT ~~~~~~~~");
     }
+    console.log("~~~~~~~~ START SORT ~~~~~~~~");
+    sortedUserIDs.sort(sortTeaScores);
+    console.log("~~~~~~~~ FINISH SORT ~~~~~~~~");
     console.log("~~~~~~~~ FINISH RANK TEADERBOARD FUNCTION CALL ~~~~~~~~");
     return sortedUserIDs;
 }
