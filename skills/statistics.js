@@ -105,9 +105,9 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
                 made = formatStat(sortedUserIDs[i].made, maxMadeLength, 'center'),
                 drank = formatStat(sortedUserIDs[i].drank, maxReceivedLength, 'center');
 
-            text += rank + pad(maxRankLength - titles.rank.length, ' ') + titles.separator +
-                    made + pad(maxMadeLength - titles.made.length, ' ') + titles.separator +
-                    drank + pad(maxReceivedLength - titles.drank.length, ' ') + titles.separator +
+            text += rank + pad(maxRankLength - rank.length, ' ') + titles.separator +
+                    made + pad(maxMadeLength - made.length, ' ') + titles.separator +
+                    drank + pad(maxReceivedLength - drank.length, ' ') + titles.separator +
                     name +  '  \n';
             currentRank++;
         }
