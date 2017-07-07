@@ -61,9 +61,17 @@ const resetUser = function(userStorage) {
     };
 }
 
+const displayTeaderboard = function() {
+    controller.storage.users.all(function(err, allUserData) {
+        console.log("~~~~ ALL USER DATA ~~~~");
+        console.log(allUserData);
+    });
+}
+
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
 module.exports.tellMyStats = tellMyStats;
 module.exports.checkUserExists = checkUserExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;
+module.exports.displayTeaderboard = displayTeaderboard;
