@@ -43,8 +43,8 @@ help.attachments = [
         ]
     },
     {
-        'fallback': 'random - Start a round of tea, and randomly pick the fool to make it',
-        'title': 'random',
+        'fallback': 'brewlette - Start a round of tea, and randomly pick the fool to make it',
+        'title': 'brewlette',
         'text': 'Start a round of tea, and randomly pick the fool to make it',
         'color': config.optionSettings.random.color,
         'callback_id': 'assist_action',
@@ -52,7 +52,7 @@ help.attachments = [
         'actions': [
             {
                 'name': 'start_random',
-                'text': 'Who\'ll make the tea?',
+                'text': 'Spin the wheel!',
                 'type': 'button',
                 'value': 'start'
             }
