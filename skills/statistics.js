@@ -89,7 +89,7 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
         titles.name = 'NAME';
         titles.made = 'MADE';
         titles.drank = 'RECEIVED';
-        titles.separator = '-';
+        titles.separator = '  ';
 
         let text = '```' + titles.main + '  \n';
 
@@ -105,9 +105,9 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
                 drank = formatStat(sortedUserIDs[i].drank.toString(), maxReceivedLength, 'center'),
                 name = formatStat('<@' + sortedUserIDs[i].id + '>', maxNameLength, 'left');
 
-            text += rank + pad(titles.rank.length - maxRankLength, ' ') + titles.separator +
-                    made + pad(titles.made.length - maxMadeLength, ' ') + titles.separator +
-                    drank + pad(titles.drank.length - maxReceivedLength, ' ') + titles.separator +
+            text += rank + pad(maxRankLength - rank.length, ' ') + pad(maxRankLength - titles.rank.length, ' ') + titles.separator +
+                    made + pad(maxMadeLength - made.length, ' ') + pad(maxMadeLength - titles.made.length, ' ') + titles.separator +
+                    drank + pad(maxReceivedLength - drank.length, ' ') + pad(maxReceivedLength - titles.drank.length, ' ') + titles.separator +
                     name +  '  \n';
             currentRank++;
         }
