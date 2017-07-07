@@ -65,6 +65,7 @@ const displayTeaderboard = function(bot, message) {
     console.log("~~~~~~~~ DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
     controller.storage.users.all(function(err, allUserData) {
         console.log("~~~~~~~~ ALL USERS STORAGE CALL ~~~~~~~~");
+        console.log(allUsersData);
         let sortedUserIDs = rankTeaderboard(allUserData);
         outputTeaderboard(bot, message, sortedUserIDs);
         console.log("~~~~~~~~ END USERS STORAGE CALL ~~~~~~~~");
