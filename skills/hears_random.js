@@ -5,7 +5,7 @@ var round = require('../shared/round.js');
  */
 
 module.exports = function(controller) {
-    controller.hears(['^random'], 'direct_mention,mention', function(bot, message) {
+    controller.hears(['^random','^brewlette'], 'direct_mention,mention', function(bot, message) {
         round.start(controller, bot, message, 'random');
     });
 
