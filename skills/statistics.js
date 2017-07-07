@@ -68,13 +68,14 @@ const displayTeaderboard = function(bot, message) {
         if (allUserData === undefined) {
             console.log("~~~~~~~~ UNDEFINED ALL USERS STORAGE - RETURNING ~~~~~~~~");
             return;
-        }
-        if (allUserData !== null) {
-            console.log(allUserData);
-            let sortedUserIDs = rankTeaderboard(allUserData);
-            outputTeaderboard(bot, message, sortedUserIDs);
         } else {
-            bot.reply(message, 'Looks like there\'s no teaderboard data yet! Go make some tea!');
+            if (allUserData !== null) {
+                console.log(allUserData);
+                let sortedUserIDs = rankTeaderboard(allUserData);
+                outputTeaderboard(bot, message, sortedUserIDs);
+            } else {
+                bot.reply(message, 'Looks like there\'s no teaderboard data yet! Go make some tea!');
+            }
         }
         console.log("~~~~~~~~ END USERS STORAGE CALL ~~~~~~~~");
     });
