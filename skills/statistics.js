@@ -61,9 +61,14 @@ const resetUser = function(userStorage) {
     };
 }
 
+const displayTeaderboard() {
+
+}
+
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
 module.exports.tellMyStats = tellMyStats;
 module.exports.checkUserExists = checkUserExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;
+module.exports.displayTeaderboard = displayTeaderboard;

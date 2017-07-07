@@ -6,6 +6,7 @@ All notable changes to this project are documented here, and adheres to
 ## [v1.1.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.0)
 
 *Enhancements:*
+* Added `teaderboard` to track the best and the worst tea makers and drinkers.
 * Added term `brewlette` which also starts random mode, for super sexy flair.
 
 *Miscellaneous:*
