@@ -65,9 +65,14 @@ const displayTeaderboard = function(bot, message) {
     console.log("~~~~~~~~ DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
     controller.storage.users.all(function(err, allUserData) {
         console.log("~~~~~~~~ ALL USERS STORAGE CALL ~~~~~~~~");
-        console.log(allUserData);
-        let sortedUserIDs = rankTeaderboard(allUserData);
-        outputTeaderboard(bot, message, sortedUserIDs);
+        if (allUserData === undefined) return;
+        if (allUserData !== null) {
+            console.log(allUserData);
+            let sortedUserIDs = rankTeaderboard(allUserData);
+            outputTeaderboard(bot, message, sortedUserIDs);
+        } else {
+            bot.reply(message, 'Looks like there\'s no teaderboard data yet! Go make some tea!');
+        }
         console.log("~~~~~~~~ END USERS STORAGE CALL ~~~~~~~~");
     });
     console.log("~~~~~~~~ FINISH DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
