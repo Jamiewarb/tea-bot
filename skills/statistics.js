@@ -79,9 +79,9 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
     bot.startConversation(message, function(err, convo) {
         let currentRank = 1,
             maxRankLength = 3,
-            maxNameLength = 20,
             maxMadeLength = 5,
             maxReceivedLength = 5,
+            maxNameLength = 20,
             titles = {};
 
         titles.main = '-=-=-=-=-=-=-=- TEADERBOARD -=-=-=-=-=-=-=-';
@@ -89,7 +89,7 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
         titles.name = 'NAME';
         titles.made = 'MADE';
         titles.drank = 'RECEIVED';
-        titles.separator = '  ';
+        titles.separator = '-';
 
         let text = '```' + titles.main + '  \n';
 
