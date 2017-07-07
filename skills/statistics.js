@@ -84,7 +84,7 @@ function outputTeaderboard(bot, message, sortedUserIDs) {
             maxNameLength = 20,
             titles = {};
 
-        titles.main = '-=-=-=-=-=-=-=- TEADERBOARD -=-=-=-=-=-=-=-';
+        titles.main = '-=-=-=-=-=-=- TEADERBOARD -=-=-=-=-=-=-';
         titles.rank = 'RANK';
         titles.name = 'NAME';
         titles.made = 'MADE';
