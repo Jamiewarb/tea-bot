@@ -65,7 +65,10 @@ const displayTeaderboard = function(bot, message) {
     console.log("~~~~~~~~ DISPLAY TEADERBOARD FUNCTION CALL ~~~~~~~~");
     controller.storage.users.all(function(err, allUserData) {
         console.log("~~~~~~~~ ALL USERS STORAGE CALL ~~~~~~~~");
-        if (allUserData === undefined) return;
+        if (allUserData === undefined) {
+            console.log("~~~~~~~~ UNDEFINED ALL USERS STORAGE - RETURNING ~~~~~~~~");
+            return;
+        }
         if (allUserData !== null) {
             console.log(allUserData);
             let sortedUserIDs = rankTeaderboard(allUserData);
@@ -111,14 +114,15 @@ function rankTeaderboard(allUserData) {
         if (userData.hasOwnProperty('id') && userData.id.length > 0 &&
             userData.hasOwnProperty('drinks') && Object.keys(userData.drinks).length !== 0) {
             console.log("~~~~~~~~ PUSH RANK ~~~~~~~~");
-            sortedUserIDs.push({
-                'id': userData.id,
-                'made': userData.drinks.made,
-                'drank': userData.drinks.drank,
-                'score': userData.drinks.made,
-                'teaDifference': userData.drinks.made - userdata.drink.drank,
-            });
+            // sortedUserIDs.push({
+            //     'id': userData.id,
+            //     'made': userData.drinks.made,
+            //     'drank': userData.drinks.drank,
+            //     'score': userData.drinks.made,
+            //     'teaDifference': userData.drinks.made - userdata.drink.drank,
+            // });
             console.log("~~~~~~~~ FINISH PUSH RANK ~~~~~~~~");
+            return;
         }
     }
     console.log("~~~~~~~~ START SORT ~~~~~~~~");
