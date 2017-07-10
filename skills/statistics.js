@@ -73,9 +73,6 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             }
         }
 
-        console.log('SAVING');
-        console.log(teamStorage);
-
         controller.storage.teams.save(teamStorage);
 
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
@@ -125,7 +122,7 @@ const setupUser = function(user, userStorage) {
 }
 
 const checkTeamExists = function(team, teamStorage) {
-    if (!teamStorage) teamStorage = {'id': team};
+    if (!teamStorage) teamStorage = {'id': team.id};
     if (!teamStorage.hasOwnProperty('brewRatings')) teamStorage.brewRatings = {};
     return teamStorage;
 }

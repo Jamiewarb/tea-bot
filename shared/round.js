@@ -93,7 +93,7 @@ const end = function(controller, bot, source) {
         if (config.settings.ratings) {
 
             let curDT = new Date(),
-                messageDateTimeString = curDT.getDate() + (curDT.getMonth()+1) +
+                messageDateTimeString = '' + curDT.getDate() + (curDT.getMonth() + 1) +
                                         curDT.getFullYear() + curDT.getHours() +
                                         curDT.getMinutes() + curDT.getSeconds();
 
