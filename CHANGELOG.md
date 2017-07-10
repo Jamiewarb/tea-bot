@@ -3,7 +3,13 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v1.1.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.0)
+## [v1.1.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.1) - 10th July 2017
+
+*Bug Fixes:*
+* Fixed a bug where the bot wouldn't start because tracking info wasn't loaded in the random skill
+* Fixed a bug where some parameters were not being passed to round start
+
+## [v1.1.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.0) - 8th July 2017
 
 *Enhancements:*
 * Added `teaderboard` to track the best and the worst tea makers and drinkers.
