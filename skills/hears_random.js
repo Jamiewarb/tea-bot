@@ -17,17 +17,17 @@ module.exports = function(controller) {
                 'team': trigger.team,
                 'user': trigger.user,
                 'channel': trigger.channel
-            }, 'random', 'random');
+            }, 'random');
         }
     });
 }
 
-const startRandom = function(controller, bot, message) {
+const startRandom = function(controller, bot, message, maker) {
     if (tracking.channelActive(message.channel)) {
         bot.reply(message, '<@' + message.user + '> there\'s already a tea round active in this channel')
         return false;
     }
-    round.start(controller, bot, message, 'random');
+    round.start(controller, bot, message, 'random', maker);
 }
 
 module.exports.startRandom = startRandom;
