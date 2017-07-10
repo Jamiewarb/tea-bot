@@ -2,7 +2,7 @@ var statistics = require('./statistics.js');
 
 module.exports = function(controller) {
     controller.hears(['^displayRatings'], 'direct_message', function(bot, message) {
-        statistics.displayRatings(bot, message);
+        statistics.displayRatings(bot, message, message.team);
     });
 
     controller.on('interactive_message_callback', function(bot, trigger) {
