@@ -17,6 +17,8 @@ desperately needs quenching. Turns out it's actually quite fun to use!
 * Manually add or remove drinks 'Made' and 'Drank' from users
 * Display a help menu with all the necessary commands, and also interactive buttons to perform them
 
+![image](https://user-images.githubusercontent.com/2754728/28029302-7c7017de-6597-11e7-8746-2cddfff22e84.png)
+
 ## Contributing
 
 I am happily accepting pull requests to the project. Please ensure coding standards
