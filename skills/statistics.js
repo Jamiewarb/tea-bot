@@ -52,29 +52,27 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
     controller.storage.teams.get(team, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
 
+        let confirmationMessage = '';
+
         if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
             teamStorage.brewRatings[userRatee] = {};
         }
         if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
             teamStorage.brewRatings[userRatee][roundID] = {};
         }
-        if (!teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
-            teamStorage.brewRatings[userRatee][roundID][userRater] = {
-                'up': 0,
-                'down': 0,
-            };
-        }
 
-        let confirmationMessage = '';
-        if (rating === 'up') {
-            teamStorage.brewRatings[userRatee][roundID][userRater].up += 1;
-            confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
-        } else if (rating === 'down') {
-            teamStorage.brewRatings[userRatee][roundID][userRater].down += 1;
-            confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)]) {
+            confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+        } else {
+            if (rating === 'up') {
+                teamStorage.brewRatings[userRatee][roundID][userRater].up = 1;
+                confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
+            } else if (rating === 'down') {
+                teamStorage.brewRatings[userRatee][roundID][userRater].down = 1;
+                confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+            }
+            controller.storage.users.save(teamStorage);
         }
-
-        controller.storage.users.save(teamStorage);
 
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
             dm.say(confirmationMessage);
