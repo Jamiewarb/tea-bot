@@ -138,6 +138,8 @@ const resetUser = function(userStorage) {
 }
 
 const displayRatings = function(bot, message, team) {
+    console.log('team');
+    console.log(team);
     controller.storage.teams.get(team.id, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
         console.log('teamStorage at displayRatings');
