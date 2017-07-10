@@ -135,6 +135,7 @@ const resetUser = function(userStorage) {
 
 const displayRatings = function(bot, message, team) {
     controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
         let ratingMessage = getRatings(teamStorage);
         bot.reply(message, ratingMessage);
     });
@@ -266,9 +267,12 @@ function sortTeaScores(a, b) {
  * }
  */
 function getRatings(teamData) {
+    console.log(teamData);
     if (!teamData.hasOwnproperty('brewRatings') || Object.keys(teamData.drinks).length === 0) {
         return 'There are currently no ratings to display';
     }
+
+    console.log('RATINGS');
 
     let output = '-=-=-=-=-=-=- RATINGS -=-=-=-=-=-=-  \n',
         brewRatings = teamData.brewRatings;
@@ -306,6 +310,7 @@ module.exports.tellMyStats = tellMyStats;
 module.exports.addUser = addUser;
 module.exports.destroyUser = destroyUser;
 module.exports.checkUserExists = checkUserExists;
+module.exports.checkTeamExists = checkTeamExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;
 module.exports.displayRatings = displayRatings;
