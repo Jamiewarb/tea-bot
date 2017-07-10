@@ -73,6 +73,9 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             }
         }
 
+        console.log('teamStorage after rateBrew');
+        console.log(teamStorage);
+
         controller.storage.teams.save(teamStorage);
 
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
@@ -137,6 +140,8 @@ const resetUser = function(userStorage) {
 const displayRatings = function(bot, message, team) {
     controller.storage.teams.get(team.id, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
+        console.log('teamStorage at displayRatings');
+        console.log(teamStorage);
         let ratingMessage = getRatings(teamStorage);
         bot.reply(message, ratingMessage);
     });
@@ -268,6 +273,8 @@ function sortTeaScores(a, b) {
  * }
  */
 function getRatings(teamData) {
+    console.log('teamData at getRatings');
+    console.log(teamData);
     if (!teamData.hasOwnProperty('brewRatings') || Object.keys(teamData.brewRatings).length === 0) {
         return 'There are currently no ratings to display';
     }
