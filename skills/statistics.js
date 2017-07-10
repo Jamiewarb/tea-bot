@@ -121,6 +121,8 @@ const setupUser = function(user, userStorage) {
 }
 
 const checkTeamExists = function(team, teamStorage) {
+    console.log('team');
+    console.log(team);
     if (!teamStorage) teamStorage = {'id': team};
     if (!teamStorage.hasOwnProperty('brewRatings')) teamStorage.brewRatings = {};
     return teamStorage;
@@ -268,7 +270,7 @@ function sortTeaScores(a, b) {
  */
 function getRatings(teamData) {
     console.log(teamData);
-    if (!teamData.hasOwnproperty('brewRatings') || Object.keys(teamData.drinks).length === 0) {
+    if (!teamData.hasOwnProperty('brewRatings') || Object.keys(teamData.drinks).length === 0) {
         return 'There are currently no ratings to display';
     }
 
