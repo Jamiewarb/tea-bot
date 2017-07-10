@@ -54,6 +54,7 @@ const destroyUser = function(user) {
         if (!userStorage) return;
         delete userStorage.id;
         delete userStorage.drinks;
+        controller.storage.users.save(userStorage);
     });
 }
 
