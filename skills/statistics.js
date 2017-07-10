@@ -61,7 +61,7 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             teamStorage.brewRatings[userRatee][roundID] = {};
         }
 
-        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)]) {
+        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
             confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
         } else {
             if (rating === 'up') {

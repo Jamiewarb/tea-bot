@@ -11,7 +11,7 @@ const start = function(controller, bot, source, type, maker) {
 
     let attachments = [];
     let drinks = config.drinks;
-
+    console.log("ROUNDS STARTED");
     for (let drink in drinks) {
         if (!drinks.hasOwnProperty(drink)) continue; //skip if from prototype
         let attachment = {
