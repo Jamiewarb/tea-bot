@@ -52,7 +52,6 @@ const addUser = function(user) {
 const destroyUser = function(user) {
     controller.storage.users.get(user, function(err, userStorage) {
         if (!userStorage) return;
-        delete userStorage.id;
         delete userStorage.drinks;
         controller.storage.users.save(userStorage);
     });
