@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.2.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.2.1) - 10th July 2017
+
+*Enhancements:*
+* Add `manualAddUser` and `manualRemoveUser` commands to add or remove users
+from the teaderboard storage
+
 ## [v1.2.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.2.0) - 10th July 2017
 
 *Enhancements:*
