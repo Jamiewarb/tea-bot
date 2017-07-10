@@ -2,6 +2,7 @@ var controller = null;
 
 /**
  * UJHAVS7834: {
+ *      id: 'UJHAVS7834',
  *      drinks: {
  *          made: 0,
  *          drank: 0,
@@ -38,6 +39,21 @@ const tellMyStats = function(bot, user) {
                 '> You\'ve *drank* ' + userStorage.drinks.drank + ' from others.'
             );
         });
+    });
+}
+
+const addUser = function(user) {
+    controller.storage.users.get(user, function(err, userStorage) {
+        userStorage = checkUserExists(user, userStorage);
+        controller.storage.users.save(userStorage);
+    });
+}
+
+const destroyUser = function(user) {
+    controller.storage.users.get(user, function(err, userStorage) {
+        if (!userStorage) return;
+        delete userStorage.drinks;
+        controller.storage.users.save(userStorage);
     });
 }
 
@@ -173,6 +189,8 @@ function sortTeaScores(a, b) {
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
 module.exports.tellMyStats = tellMyStats;
+module.exports.addUser = addUser;
+module.exports.destroyUser = destroyUser;
 module.exports.checkUserExists = checkUserExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;

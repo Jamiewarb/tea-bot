@@ -35,38 +35,64 @@ module.exports = function(controller) {
     });
 
     controller.hears(['^manualAddMade'], 'direct_message', function(bot, message) {
-        parseManualAdd(bot, message, 'made');
+        parseManual(bot, message, 'addMade');
     });
 
     controller.hears(['^manualAddDrank'], 'direct_message', function(bot, message) {
-        parseManualAdd(bot, message, 'drank');
+        parseManual(bot, message, 'addDrank');
     });
 
-    function parseManualAdd(bot, message, mode) {
+    controller.hears(['^manualAddUser'], 'direct_message', function(bot, message) {
+        parseManual(bot, message, 'addUser');
+    });
+
+    controller.hears(['^manualRemoveUser'], 'direct_message', function(bot, message) {
+        parseManual(bot, message, 'removeUser');
+    });
+
+    function parseManual(bot, message, mode) {
         let tokens = message.text.split(' '),
             invalid = false;
         if (tokens[1] !== config.settings.admin) return;
-        tokens[3] = parseInt(tokens[3]);
-        if ((typeof tokens[2] !== 'string') || (!Number.isInteger(tokens[3]))) {
-            invalid = 'true';
-        }
         switch (mode) {
-            case 'made':
-                if (invalid) {
+            case 'addMade':
+                tokens[3] = parseInt(tokens[3]);
+                if (!isValid(tokens)) {
                     bot.reply(message, 'This command must be in the form "manualAddMade" <password> <userID> <amount>');
                     return;
                 }
                 statistics.addMade(tokens[2], tokens[3]);
                 bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' made drinks');
                 break;
-            case 'drank':
-                if (invalid) {
+            case 'addDrank':
+                tokens[3] = parseInt(tokens[3]);
+                if (!isValid(tokens)) {
                     bot.reply(message, 'This command must be in the form "manualAddDrank" <password> <userID> <amount>');
                     return;
                 }
                 statistics.addDrank(tokens[2], tokens[3]);
                 bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' drank drinks');
                 break;
+            case 'addUser':
+                if (typeof tokens[2] !== 'string') {
+                    bot.reply(message, 'This command must be in the form "manualAddUser" <password> <userID>');
+                    return;
+                }
+                statistics.addUser(tokens[2]);
+                bot.reply(message, 'User <@' + tokens[2] + '> has been added to the teaderboard');
+                break;
+            case 'removeUser':
+                if (typeof tokens[2] !== 'string') {
+                    bot.reply(message, 'This command must be in the form "manualRemoveUser" <password> <userID>');
+                    return;
+                }
+                statistics.destroyUser(tokens[2]);
+                bot.reply(message, 'User <@' + tokens[2] + '>\'s stats have been deleted from the teaderboard');
+                break;
         }
+    }
+
+    function isValid(tokens) {
+        return (typeof tokens[2] === 'string' && Number.isInteger(tokens[3]));
     }
 }
