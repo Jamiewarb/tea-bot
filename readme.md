@@ -42,6 +42,8 @@ Use the `/shared` function for code that's required by multiple skills
 
 Please follow the instructions here for [setting up your Slack Application](https://github.com/howdyai/botkit-starter-slack)
 
+![image](https://user-images.githubusercontent.com/2754728/28029335-9e81adb0-6597-11e7-9f13-324c91f953e2.png)
+
 ## About Botkit
 
 Botkit is a product of [Howdy](https://howdy.ai) and made in Austin, TX with the help of a worldwide community of botheads.
