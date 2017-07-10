@@ -3,6 +3,16 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.2.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.2.0) - 10th July 2017
+
+*Enhancements:*
+* Added manualAdd commands
+* Added days to uptime stats
+
+*Miscellaneous:*
+* Moved stats out of sample file to their own skills file
+* Removed example code and cleaned up or renamed that which we're keeping
+
 ## [v1.1.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.1.1) - 10th July 2017
 
 *Bug Fixes:*
