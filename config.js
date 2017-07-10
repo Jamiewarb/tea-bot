@@ -2,6 +2,7 @@ var config = {};
 
 config.settings = {
     'timer': 120000,
+    'admin': 'blork'
 }
 
 config.drinks = {
