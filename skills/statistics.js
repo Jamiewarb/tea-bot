@@ -49,7 +49,7 @@ const addMade = function(user, amount) {
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
     //if (userRatee === userRater) return;
 
-    controller.storage.teams.get(team.id, function(err, teamStorage) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
 
         let confirmationMessage = '';
@@ -125,7 +125,7 @@ const setupUser = function(user, userStorage) {
 }
 
 const checkTeamExists = function(team, teamStorage) {
-    if (!teamStorage) teamStorage = {'id': team.id};
+    if (!teamStorage) teamStorage = {'id': team};
     if (!teamStorage.hasOwnProperty('brewRatings')) teamStorage.brewRatings = {};
     return teamStorage;
 }
@@ -137,13 +137,9 @@ const resetUser = function(userStorage) {
     };
 }
 
-const displayRatings = function(bot, message, team) {
-    console.log('team');
-    console.log(team);
-    controller.storage.teams.get(team.id, function(err, teamStorage) {
-        teamStorage = checkTeamExists(team, teamStorage);
-        console.log('teamStorage at displayRatings');
-        console.log(teamStorage);
+const displayRatings = function(bot, message) {
+    controller.storage.teams.get(message.team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(message.team, teamStorage);
         let ratingMessage = getRatings(teamStorage);
         bot.reply(message, ratingMessage);
     });
