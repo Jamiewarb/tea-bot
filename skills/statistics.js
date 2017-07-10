@@ -73,8 +73,6 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             }
         }
 
-        console.log('teamStorage after rateBrew');
-        console.log(teamStorage);
 
         controller.storage.teams.save(teamStorage);
 
@@ -271,39 +269,32 @@ function sortTeaScores(a, b) {
  * }
  */
 function getRatings(teamData) {
-    console.log('teamData at getRatings');
-    console.log(teamData);
     if (!teamData.hasOwnProperty('brewRatings') || Object.keys(teamData.brewRatings).length === 0) {
         return 'There are currently no ratings to display';
     }
 
-    console.log('RATINGS');
 
     let output = '-=-=-=-=-=-=- RATINGS -=-=-=-=-=-=-  \n',
         brewRatings = teamData.brewRatings;
     for (let rateeUser in brewRatings) {
         if (!brewRatings.hasOwnProperty(rateeUser)) continue; //skip if from prototype
-        console.log('brewRatings');
         let up = 0,
             down = 0,
             roundIDs = brewRatings[rateeUser];
         for (let roundID in roundIDs) {
-            console.log('roundIDs');
             if (!roundIDs.hasOwnProperty(roundID)) continue; //skip if from prototype
             let ratorUsers = roundIDs[roundID];
             for (let rator in ratorUsers) {
-                console.log('ratorUsers');
                 if (!ratorUsers.hasOwnProperty(rator)) continue; //skip if from prototype
                 let ratings = ratorUsers[rator];
                 for (rating in ratings) {
-                    console.log('ratings');
                     if (!ratings.hasOwnProperty(rating)) continue; //skip if from prototype
                     if (rating === 'up') up += ratings[rating];
                     if (rating === 'down') down += ratings[rating];
                 }
             }
         }
-        output += '<@' + rateeUser + '> - Up: ' + up + '- Down: ' + down;
+        output += '<@' + rateeUser + '> - Up: ' + up + ' - Down: ' + down;
     }
     return output;
 }
