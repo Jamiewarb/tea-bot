@@ -1,6 +1,7 @@
 var controller = null;
 
 /**
+ * User Storage
  * UJHAVS7834: {
  *      id: 'UJHAVS7834',
  *      drinks: {
@@ -8,6 +9,21 @@ var controller = null;
  *          drank: 0,
  *      }
  *  }
+ *
+ * Team Storage
+ * T47563693: {
+ *     id: 'U045VRZFT',
+ *     brewRatings: {
+ *         U045VRZFT: {
+ *             100717-190702: { // This is the round identifier, from current date time
+ *                 U082YDTST: {
+ *                     'up': 0,
+ *                     'down': 0,
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
  */
 
 module.exports = function(cont) {
@@ -27,6 +43,42 @@ const addMade = function(user, amount) {
         userStorage = checkUserExists(user, userStorage);
         userStorage.drinks.made += amount;
         controller.storage.users.save(userStorage);
+    });
+}
+
+const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
+    //if (userRatee === userRater) return;
+
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
+
+        let confirmationMessage = '';
+
+        if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
+            teamStorage.brewRatings[userRatee] = {};
+        }
+        if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[userRatee][roundID] = {};
+        }
+
+        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
+            confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+        } else {
+            if (rating === 'up') {
+                teamStorage.brewRatings[userRatee][roundID][userRater] = {'up': 1};
+                confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
+            } else if (rating === 'down') {
+                teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
+                confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+            }
+        }
+
+
+        controller.storage.teams.save(teamStorage);
+
+        bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
+            dm.say(confirmationMessage);
+        });
     });
 }
 
@@ -70,11 +122,25 @@ const setupUser = function(user, userStorage) {
     return userStorage;
 }
 
+const checkTeamExists = function(team, teamStorage) {
+    if (!teamStorage) teamStorage = {'id': team};
+    if (!teamStorage.hasOwnProperty('brewRatings')) teamStorage.brewRatings = {};
+    return teamStorage;
+}
+
 const resetUser = function(userStorage) {
     userStorage.drinks = {
         'made': 0,
         'drank': 0,
     };
+}
+
+const displayRatings = function(bot, message) {
+    controller.storage.teams.get(message.team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(message.team, teamStorage);
+        let ratingMessage = getRatings(teamStorage);
+        bot.reply(message, ratingMessage);
+    });
 }
 
 const displayTeaderboard = function(bot, message) {
@@ -186,12 +252,62 @@ function sortTeaScores(a, b) {
     return b.teaDifference - a.teaDifference;
 }
 
+/**
+ * Team Storage
+ * T47563693: {
+ *     id: 'U045VRZFT',
+ *     brewRatings: {
+ *         U045VRZFT: {
+ *             100717-190702: { // This is the round identifier, from current date time
+ *                 U082YDTST: {
+ *                     'up': 0,
+ *                     'down': 0,
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ */
+function getRatings(teamData) {
+    if (!teamData.hasOwnProperty('brewRatings') || Object.keys(teamData.brewRatings).length === 0) {
+        return 'There are currently no ratings to display';
+    }
+
+
+    let output = '-=-=-=-=-=-=- RATINGS -=-=-=-=-=-=-  \n',
+        brewRatings = teamData.brewRatings;
+    for (let rateeUser in brewRatings) {
+        if (!brewRatings.hasOwnProperty(rateeUser)) continue; //skip if from prototype
+        let up = 0,
+            down = 0,
+            roundIDs = brewRatings[rateeUser];
+        for (let roundID in roundIDs) {
+            if (!roundIDs.hasOwnProperty(roundID)) continue; //skip if from prototype
+            let ratorUsers = roundIDs[roundID];
+            for (let rator in ratorUsers) {
+                if (!ratorUsers.hasOwnProperty(rator)) continue; //skip if from prototype
+                let ratings = ratorUsers[rator];
+                for (rating in ratings) {
+                    if (!ratings.hasOwnProperty(rating)) continue; //skip if from prototype
+                    if (rating === 'up') up += ratings[rating];
+                    if (rating === 'down') down += ratings[rating];
+                }
+            }
+        }
+        output += '<@' + rateeUser + '> - Up: ' + up + ' - Down: ' + down;
+    }
+    return output;
+}
+
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
+module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
 module.exports.addUser = addUser;
 module.exports.destroyUser = destroyUser;
 module.exports.checkUserExists = checkUserExists;
+module.exports.checkTeamExists = checkTeamExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;
+module.exports.displayRatings = displayRatings;
 module.exports.displayTeaderboard = displayTeaderboard;
