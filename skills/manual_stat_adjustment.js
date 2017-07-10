@@ -35,11 +35,11 @@ module.exports = function(controller) {
     });
 
     controller.hears(['^manualAddMade'], 'direct_message', function(bot, message) {
-        praseManualAdd(bot, message, 'made');
+        parseManualAdd(bot, message, 'made');
     });
 
     controller.hears(['^manualAddDrank'], 'direct_message', function(bot, message) {
-        praseManualAdd(bot, message, 'drank');
+        parseManualAdd(bot, message, 'drank');
     });
 
     function parseManualAdd(bot, message, mode) {
