@@ -1,108 +1,45 @@
-# Botkit Starter Kit for Slack Bots
+# Tea Bot - A Slack Bot to help with your office tea needs
 
-This repo contains everything you need to get started building a Slack bot with [Botkit](https://botkit.ai) and [Botkit Studio](https://botkit.ai).
+This is the first bot I've built, for Slack or otherwise, and my first main Javascript project.
 
-Botkit is designed to ease the process of designing and running useful, creative bots that live inside messaging platforms. Bots are applications that can send and receive messages, and in many cases, appear alongside their human counterparts as users.
+I built it for Hex Digital as a bit of humour during the 3pm crawl when our thirst
+desperately needs quenching. Turns out it's actually quite fun to use!
 
-Some bots talk like people, others silently work in the background, while others present interfaces much like modern mobile applications. Botkit gives developers the necessary tools for building bots of any kind! It provides an easy-to-understand interface for sending and receiving messages so that developers can focus on creating novel applications and experiences instead of dealing with API endpoints.
+## Features:
+* Announce to your team that you're going to make a round of teas, coffees and other
+* Take tea, coffee or other orders from everyone in the channel when a round is active
+* When a round finishes, announce all the orders and provide totals of each drink for ease of use
+* Ask politely if someone else will make tea/coffee/other
+* Start a random round, where the person that will make the tea is picked randomly from everyone that wants one
+* Store statistics each time you make drinks or have them made for you
+* Ask the bot how many you've made for others, and how many you've drank from others
+* Display a teaderboard to see rankings for everyone in the team, Made and Received
+* Manually add or remove drinks 'Made' and 'Drank' from users
+* Display a help menu with all the necessary commands, and also interactive buttons to perform them
 
-Our goal with Botkit is to make bot building easy, fun, and accessible to anyone with the desire to create a future filled with talking machines!
+## Contributing
 
-If you are looking to create a bot on other platforms using Glitch, check out the [Botkit project page](https://glitch.com/botkit).
+I am happily accepting pull requests to the project. Please ensure coding standards
+match that of the existing code and that the pull requests thoroughly document
+the functionality proposed/problem to solve and how you've chosen to do it.
 
-### Getting Started
+### Setup the Project Yourself
 
-There are a myriad of methods you can use to set up an application on Slack, here are some of your options:
+Clone the repo
 
-#### Use Botkit Studio
-[Botkit Studio](https://studio.botkit.ai/signup?code=slackglitch) is a set of tools that adds capabilities to the open source Botkit library by offering hosted GUI interfaces for script management and action trigger definition. 
+Run `yarn install` or `npm install`
 
-While Botkit Studio is *not required* to build a bot using Botkit, we highly recommend it as your bot will be easier to manage, customize and extend.
+### Writing Code
 
-#### Install Botkit
+Ensure all skills are in the `/skills` directory, such as hearing certain phrases
+and just general functionality.
 
-[Remix this project on Glitch](https://glitch.com/edit/#!/import/github/howdyai/botkit-starter-slack)
+Use the `/shared` function for code that's required by multiple skills
 
-[Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/howdyai/botkit-starter-slack/master)
+#### Set up your Slack Application
 
-Clone this repository using Git:
+Please follow the instructions here for [setting up your Slack Application](https://github.com/howdyai/botkit-starter-slack)
 
-`git clone https://github.com/howdyai/botkit-starter-slack.git`
-
-Install dependencies, including [Botkit](https://github.com/howdyai/botkit):
-
-```
-cd botkit-starter-slack
-npm install
-```
-
-#### Set up your Slack Application 
-Once you have setup your Botkit development enviroment, the next thing you will want to do is set up a new Slack application via the [Slack developer portal](https://api.slack.com/). This is a multi-step process, but only takes a few minutes. 
-
-* [Read this step-by-step guide](https://github.com/howdyai/botkit/blob/master/docs/slack-events-api.md) to make sure everything is set up. 
-
-* We also have this [handy video walkthrough](https://youtu.be/us2zdf0vRz0) for setting up this project with Glitch.
-
-Next, get a Botkit Studio token [from your Botkit developer account](https://studio.botkit.ai/) if you have decided to use Studio. 
-
-Update the `.env` file with your newly acquired tokens.
-
-Launch your bot application by typing:
-
-`node .`
-
-Now, visit your new bot's login page: http://localhost:3000/login
-
-Now comes the fun part of [making your bot!](https://github.com/howdyai/botkit/blob/master/docs/readme.md#basic-usage)
-
-
-### Extend This Starter kit
-
-This starter kit is designed to provide developers a robust starting point for building a custom bot. Included in the code are a set of sample bot "skills" that illustrate various aspects of the Botkit SDK features.  Once you are familiar with how Botkit works, you may safely delete all of the files in the `skills/` subfolder.
-
-Developers will build custom features as modules that live in the `skills/` folder. The main bot application will automatically include any files placed there.
-
-A skill module should be in the format:
-
-```
-module.exports = function(controller) {
-
-    // add event handlers to controller
-    // such as hears handlers that match triggers defined in code
-    // or controller.studio.before, validate, and after which tie into triggers
-    // defined in the Botkit Studio UI.
-
-}
-```
-
-Continue your journey to becoming a champion botmaster by [reading the Botkit Studio SDK documentation here.](https://github.com/howdyai/botkit/blob/master/docs/readme-studio.md)
-
-
-### Customize Storage
-
-By default, the starter kit uses a simple file-system based storage mechanism to record information about the teams and users that interact with the bot. While this is fine for development, or use by a single team, most developers will want to customize the code to use a real database system.
-
-There are [Botkit plugins for all the major database systems](https://github.com/howdyai/botkit/blob/master/docs/readme-middlewares.md#storage-modules) which can be enabled with just a few lines of code.
-
-We have enabled our [Mongo middleware]() for starters in this project. To use your own Mongo database, just fill out `MONGO_URI` in your `.env` file with the appropriate information. For tips on reading and writing to storage, [check out these medium posts](https://botkit.groovehq.com/knowledge_base/categories/build-a-bot)
-
-# Developer & Support Community
-
-You can find full documentation for Botkit on our [GitHub page](https://github.com/howdyai/botkit/blob/master/readme.md). Botkit Studio users can access the [Botkit Studio Knowledge Base](https://botkit.groovehq.com/help_center) for help in managing their account.
-
-###  Need more help?
-* Glitch allows users to ask the community for help directly from the editor! For more information on raising your hand, [read this blog post.](https://medium.com/glitch/just-raise-your-hand-how-glitch-helps-aa6564cb1685)
-
-* Join our thriving community of Botkit developers and bot enthusiasts at large. Over 4500 members strong, [our open Slack group](http://community.botkit.ai) is _the place_ for people interested in the art and science of making bots. 
-
- Come to ask questions, share your progress, and commune with your peers!
-
-* We also host a [regular meetup and annual conference called TALKABOT.](http://talkabot.ai) Come meet and learn from other bot developers! 
- 
- [Full video of our 2016 event is available on Youtube.](https://www.youtube.com/playlist?list=PLD3JNfKLDs7WsEHSal2cfwG0Fex7A6aok)
-
-
-
-# About Botkit
+## About Botkit
 
 Botkit is a product of [Howdy](https://howdy.ai) and made in Austin, TX with the help of a worldwide community of botheads.
