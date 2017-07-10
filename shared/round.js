@@ -117,9 +117,7 @@ const end = function(controller, bot, source) {
                 ]
             };
 
-            setTimeout(function() {
-                convo.say(ratingMessage)
-            }, 4000); //10000
+            convo.say(ratingMessage);
 
         }
 
