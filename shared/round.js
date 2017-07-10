@@ -117,10 +117,9 @@ const end = function(controller, bot, source) {
                 ]
             };
 
-            setTimeout(
-                convo.say(ratingMessage),
-                10000
-            );
+            setTimeout(function() {
+                convo.say(ratingMessage)
+            }, 4000); //10000
 
         }
 
