@@ -2,6 +2,8 @@ var statistics = require('./statistics.js');
 
 module.exports = function(controller) {
     controller.hears(['^displayRatings'], 'direct_message', function(bot, message) {
+        console.log('message');
+        console.log(message);
         statistics.displayRatings(bot, message, message.team);
     });
 
