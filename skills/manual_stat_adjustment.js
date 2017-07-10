@@ -74,12 +74,18 @@ module.exports = function(controller) {
                 bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' drank drinks');
                 break;
             case 'addUser':
-                if (typeof tokens[2] !== 'string') return;
+                if (typeof tokens[2] !== 'string') {
+                    bot.reply(message, 'This command must be in the form "manualAddUser" <password> <userID>');
+                    return;
+                }
                 statistics.addUser(tokens[2]);
                 bot.reply(message, 'User <@' + tokens[2] + '> has been added to the teaderboard');
                 break;
             case 'removeUser':
-                if (typeof tokens[2] !== 'string') return;
+                if (typeof tokens[2] !== 'string') {
+                    bot.reply(message, 'This command must be in the form "manualRemoveUser" <password> <userID>');
+                    return;
+                }
                 statistics.destroyUser(tokens[2]);
                 bot.reply(message, 'User <@' + tokens[2] + '>\'s stats have been deleted from the teaderboard');
                 break;
