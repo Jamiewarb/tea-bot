@@ -41,6 +41,16 @@ const tellMyStats = function(bot, user) {
     });
 }
 
+const addUser = function(user) {
+    controller.storage.users.get(user, function(err, userStorage) {
+        userStorage = checkUserExists(user, userStorage);
+    });
+}
+
+const destroyUser = function(user) {
+    controller.storage.users.delete(user);
+}
+
 const checkUserExists = function(user, userStorage) {
     userStorage = setupUser(user, userStorage);
     return userStorage;
@@ -173,6 +183,8 @@ function sortTeaScores(a, b) {
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
 module.exports.tellMyStats = tellMyStats;
+module.exports.addUser = addUser;
+module.exports.destroyUser = destroyUser;
 module.exports.checkUserExists = checkUserExists;
 module.exports.setupUser = setupUser;
 module.exports.resetUser = resetUser;
