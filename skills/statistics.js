@@ -49,7 +49,7 @@ const addMade = function(user, amount) {
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
     //if (userRatee === userRater) return;
 
-    controller.storage.teams.get(team, function(err, teamStorage) {
+    controller.storage.teams.get(team.id, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
 
         let confirmationMessage = '';
@@ -135,7 +135,7 @@ const resetUser = function(userStorage) {
 }
 
 const displayRatings = function(bot, message, team) {
-    controller.storage.teams.get(team, function(err, teamStorage) {
+    controller.storage.teams.get(team.id, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
         let ratingMessage = getRatings(teamStorage);
         bot.reply(message, ratingMessage);
