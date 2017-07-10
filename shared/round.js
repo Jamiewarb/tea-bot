@@ -11,7 +11,7 @@ const start = function(controller, bot, source, type, maker) {
 
     let attachments = [];
     let drinks = config.drinks;
-    console.log("ROUNDS STARTED");
+
     for (let drink in drinks) {
         if (!drinks.hasOwnProperty(drink)) continue; //skip if from prototype
         let attachment = {
@@ -33,19 +33,21 @@ const start = function(controller, bot, source, type, maker) {
         }
         attachments.push(attachment);
     }
-
+    console.log("RANDOM");
     let text = '';
     if (type === 'random') {
         text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 2 minutes one of you will be randomly selected to make them!';
     } else {
         text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 2 minutes to get your orders in by typing the below or click the buttons:';
     }
+    console.log("SAY");
 
     bot.say({
         'text': text,
         'attachments': attachments,
         'channel': source.channel
     });
+    console.log("TIMEOUT");
 
     setTimeout(function() {
         end(controller, bot, source);
@@ -117,7 +119,9 @@ const end = function(controller, bot, source) {
                 ]
             };
 
-            convo.say(ratingMessage);
+            setTimeout(function() {
+                bot.reply(source, ratingMessage);
+            }, 15000);
 
         }
 
