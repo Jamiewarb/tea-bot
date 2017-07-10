@@ -2,6 +2,7 @@ var controller = null;
 
 /**
  * UJHAVS7834: {
+ *      id: 'UJHAVS7834',
  *      drinks: {
  *          made: 0,
  *          drank: 0,
@@ -44,11 +45,16 @@ const tellMyStats = function(bot, user) {
 const addUser = function(user) {
     controller.storage.users.get(user, function(err, userStorage) {
         userStorage = checkUserExists(user, userStorage);
+        controller.storage.users.save(userStorage);
     });
 }
 
 const destroyUser = function(user) {
-    controller.storage.users.delete(user);
+    controller.storage.users.get(user, function(err, userStorage) {
+        if (!userStorage) return;
+        delete userStorage.id;
+        delete userStorage.drinks;
+    });
 }
 
 const checkUserExists = function(user, userStorage) {
