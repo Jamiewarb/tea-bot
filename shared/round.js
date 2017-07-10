@@ -36,9 +36,9 @@ const start = function(controller, bot, source, type, maker) {
 
     let text = '';
     if (type === 'random') {
-        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and one of you will be randomly selected to make them!';
+        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 2 minutes one of you will be randomly selected to make them!';
     } else {
-        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got two minutes to get your orders in by typing the below or click the buttons:';
+        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 2 minutes to get your orders in by typing the below or click the buttons:';
     }
 
     bot.say({
@@ -128,11 +128,11 @@ const end = function(controller, bot, source) {
         if (allUsers[i] !== maker) {
             statistics.addDrank(allUsers[i], 1);
         } else {
-            makerMakes -= 1;
+            makerMakes -= 1; // We don't count drinks made for yourself
         }
     }
 
-    statistics.addMade(maker, makerMakes); // We don't count drinks made for yourself
+    statistics.addMade(maker, makerMakes);
 
 }
 
