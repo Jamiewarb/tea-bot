@@ -1,4 +1,4 @@
-var debug = require('debug')('botkit:channel_join');
+//var debug = require('debug')('botkit:channel_join');
 var help = require('../shared/help.js');
 
 module.exports = function(controller) {
@@ -15,10 +15,7 @@ module.exports = function(controller) {
             convo.say(helpMessage);
 
             convo.next();
-        });
 
-        controller.studio.run(bot, 'channel_join', message.user, message.channel).catch(function(err) {
-            debug('Error: encountered an error loading onboarding script from Botkit Studio:', err);
         });
 
     });
