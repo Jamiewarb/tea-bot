@@ -34,32 +34,39 @@ module.exports = function(controller) {
         });
     });
 
-    controller.hears(['^manualAddDrank'], 'direct_message', function(bot, message) {
-        let tokens = message.text.split(' ');
-        if (tokens[1] !== config.settings.admin) return;
-        if ((typeof tokens[2] === 'string') && Number.isInteger(tokens[3])) {
-            statistics.addDrank(tokens[2], tokens[3]);
-            bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' drank drinks');
-        } else {
-            bot.reply(message, 'This command must be in the form "manualAddDrank" <password> <userID> <amount>');
-        }
+    controller.hears(['^manualAddMade'], 'direct_message', function(bot, message) {
+        praseManualAdd(bot, message, 'made');
     });
 
-    controller.hears(['^manualAddMade'], 'direct_message', function(bot, message) {
-        console.log("Heard");
-        let tokens = message.text.split(' ');
-        console.log("Split");
-        if (tokens[1] !== config.settings.admin) return;
-        console.log("Admin Password Succeeded");
-        if ((typeof tokens[2] === 'string') && Number.isInteger(tokens[3])) {
-            console.log("Correct Types");
-            statistics.addMade(tokens[2], tokens[3]);
-            console.log("AddMade called");
-            bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' made drinks');
-            console.log("Bot Reply done");
-        } else {
-            console.log("Bot Reply incorrect format");
-            bot.reply(message, 'This command must be in the form "manualAddMade" <password> <userID> <amount>');
-        }
+    controller.hears(['^manualAddDrank'], 'direct_message', function(bot, message) {
+        praseManualAdd(bot, message, 'drank');
     });
+
+    function parseManualAdd(bot, message, mode) {
+        let tokens = message.text.split(' '),
+            invalid = false;
+        if (tokens[1] !== config.settings.admin) return;
+        tokens[3] = parseInt(tokens[3]);
+        if ((typeof tokens[2] !== 'string') || (!Number.isInteger(tokens[3]))) {
+            invalid = 'true';
+        }
+        switch (mode) {
+            case 'made':
+                if (invalid) {
+                    bot.reply(message, 'This command must be in the form "manualAddMade" <password> <userID> <amount>');
+                    return;
+                }
+                statistics.addMade(tokens[2], tokens[3]);
+                bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' made drinks');
+                break;
+            case 'drank':
+                if (invalid) {
+                    bot.reply(message, 'This command must be in the form "manualAddDrank" <password> <userID> <amount>');
+                    return;
+                }
+                statistics.addDrank(tokens[2], tokens[3]);
+                bot.reply(message, 'User <@' + tokens[2] + '> has been added ' + tokens[3] + ' drank drinks');
+                break;
+        }
+    }
 }
