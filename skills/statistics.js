@@ -47,10 +47,8 @@ const addMade = function(user, amount) {
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
-    console.log("in rate");
-    if (userRatee === userRater) return;
+    //if (userRatee === userRater) return;
 
-    console.log("Rate user not same");
     controller.storage.teams.get(team, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
 
