@@ -173,7 +173,7 @@ function collateUserChoices(choices) {
 }
 
 function collateTotals(countDrinks) {
-    let totalsString += '\n>*Totals*:  \n';
+    let totalsString = '\n>*Totals*:  \n';
 
     for (let drink in countDrinks) {
         totalsString += '>' + drink + ': ' + countDrinks[drink] + '  \n';
