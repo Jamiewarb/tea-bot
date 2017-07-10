@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.3.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.0) - 11th July 2017
+
+*Enhancements:*
+* Added ability to rate a round positively after it's been completed
+  * These votes are attributed to a specific user, a specific round and from a specific user, allowing for deeper insights into statistics later on
+
 ## [v1.2.2](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.2.2) - 10th July 2017
 
 *Miscellaneous:*
