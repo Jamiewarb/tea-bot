@@ -42,7 +42,7 @@ module.exports = function(controller) {
             respondMe(bot, trigger, response, outcome);
 
             if (outcome !== 'start') return false;
-
+            console.log("Starting round");
             round.start(controller, bot, {
                 'team': trigger.team,
                 'user': trigger.user,
