@@ -3,7 +3,7 @@ var config = {};
 config.settings = {
     'admin': 'blork',
     'ratings': true,
-    'timer': 4500
+    'timer': 120000
 }
 
 config.drinks = {
