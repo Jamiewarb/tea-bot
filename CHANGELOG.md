@@ -3,6 +3,14 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.3.3](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.3) - 11th July 2017
+
+*Enhancements:*
+* Prevented users from rating their own brews when they conduct their own round
+
+*Bug Fixes:*
+* Fixed default timer being set incorrectly by previous patch
+
 ## [v1.3.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.1) - 11th July 2017
 
 *Bug Fixes:*
