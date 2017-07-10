@@ -3,8 +3,7 @@ var statistics = require('./statistics.js');
 module.exports = function(controller) {
     controller.on('interactive_message_callback', function(bot, trigger) {
 
-        console.log("RATING");
-        let callback_id = triggers.callback_id;
+        let callback_id = trigger.callback_id;
         if (callback_id.startsWith('rating_')) {
             console.log("STARTS WITH");
             if (callback_id.indexOf('_') > 0) {
