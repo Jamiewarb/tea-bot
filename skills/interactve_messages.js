@@ -30,14 +30,6 @@ module.exports = function(controller) {
                 person = 'You';
             }
 
-            // reply.attachments.push(
-            //     {
-            //         text: person + ' said, ' + trigger.actions[0].value,
-            //     }
-            // );
-
-            // bot.replyInteractive(trigger, reply);
-
             controller.receiveMessage(bot, message);
             return false; // do not bubble event
         }
