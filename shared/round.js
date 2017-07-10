@@ -95,7 +95,7 @@ const end = function(controller, bot, source) {
             let curDT = new Date(),
                 messageDateTimeString = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
                                         '/' + curDT.getFullYear() + '-' + curDT.getHours() +
-                                        ':' curDT.getMinutes() + ':' + curDT.getSeconds();
+                                        ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
 
             let ratingMessage = {
                 'text': 'If you think this was a proper cracking brew, thumb it up!',

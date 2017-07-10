@@ -3,7 +3,12 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v1.3.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.0) - 11th July 2017
+## [v1.3.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.1) - 11th July 2017
+
+*Bug Fixes:*
+* Fixed breaking bug that prevented bot from starting due to a syntax error
+
+## v1.3.0 - 11th July 2017
 
 *Enhancements:*
 * Added ability to rate a round positively after it's been completed
