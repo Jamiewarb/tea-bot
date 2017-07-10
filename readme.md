@@ -42,7 +42,7 @@ Use the `/shared` function for code that's required by multiple skills
 
 Please follow the instructions here for [setting up your Slack Application](https://github.com/howdyai/botkit-starter-slack)
 
-![image](https://user-images.githubusercontent.com/2754728/28029335-9e81adb0-6597-11e7-9f13-324c91f953e2.png)
+![image](https://user-images.githubusercontent.com/2754728/28029381-c3270d5e-6597-11e7-9055-3e8920ca2c7a.png)
 
 ## About Botkit
 
