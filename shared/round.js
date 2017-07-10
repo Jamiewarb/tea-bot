@@ -61,32 +61,7 @@ const end = function(controller, bot, source) {
 
     tracking.deactivateChannel(source.channel);
 
-    let results = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~\n\n',
-        userResults = '',
-        countDrinks = {},
-        allUsers = [];
-
-    for (let userChoice in choices) {
-        if (!choices.hasOwnProperty(userChoice)) continue; //skip if from prototype
-
-        let user = choices[userChoice].user,
-            drink = choices[userChoice].drink,
-            message = choices[userChoice].message;
-
-        allUsers.push(user);
-
-        userResults += '<@' + user + '> would like ' + drink;
-        if (message && message.length !== 0) {
-            userResults += ': "_' + message + '_"  ';
-        }
-        userResults += '  \n';
-
-        if (countDrinks.hasOwnProperty(drink)) {
-            countDrinks[drink] = countDrinks[drink] + 1;
-        } else {
-            countDrinks[drink] = 1;
-        }
-    }
+    let {allUsers, countDrinks, userResults} = collateUserChoices(choices);
 
     if (userResults.length === 0) {
         bot.say({
@@ -96,28 +71,56 @@ const end = function(controller, bot, source) {
         return;
     }
 
-    results += userResults;
-    results += '\n>*Totals*:  \n';
-
-    for (let drink in countDrinks) {
-        results += '>' + drink + ': ' + countDrinks[drink] + '  \n';
-    }
+    let finalOutput = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~\n\n' +
+                      userResults +
+                      collateTotals(countDrinks);
 
     bot.startConversation(source, function(err, convo) {
 
-        convo.say(results);
+        convo.say(finalOutput);
 
         if (type === 'random') {
-            let randomUser;
+            let randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
             if (allUsers.length > 1) {
-                randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
                 convo.say('Now which of you fools is going to make these beverages?');
                 convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
             } else {
-                randomUser = allUsers[0];
                 convo.say('Guess it\'s gonna have to be <@' + randomUser + '>');
             }
             maker = randomUser;
+        }
+
+        if (config.settings.ratings) {
+
+            let curDT = new Date(),
+                messageDateTimeString = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
+                                        '/' + curDT.getFullYear() + '-' + curDT.getHours() +
+                                        ':' curDT.getMinutes() + ':' + curDT.getSeconds();
+
+            let ratingMessage = {
+                'text': 'If you think this was a proper cracking brew, thumb it up!',
+                'attachments': [
+                    {
+                        'fallback': 'Looks like your chat client doesn\'t support rating this brew',
+                        'color': config.optionSettings.me.color,
+                        'callback_id': 'rating_' + messageDateTimeString,
+                        'attachment_type': 'default',
+                        'actions': [
+                            {
+                                'name': 'rateUp',
+                                'text': ':thumbsup: Cracking Brew',
+                                'type': 'button',
+                                'value': maker,
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            setTimeout(function() {
+                bot.reply(source, ratingMessage);
+            }, 15000);
+
         }
 
     });
@@ -134,6 +137,48 @@ const end = function(controller, bot, source) {
 
     statistics.addMade(maker, makerMakes);
 
+}
+
+function collateUserChoices(choices) {
+    let results = {
+        allUsers: [],
+        countDrinks: {},
+        userResults: ''
+    };
+
+    for (let userChoice in choices) {
+        if (!choices.hasOwnProperty(userChoice)) continue; //skip if from prototype
+
+        let user = choices[userChoice].user,
+            drink = choices[userChoice].drink,
+            message = choices[userChoice].message;
+
+        results.allUsers.push(user);
+
+        results.userResults += '<@' + user + '> would like ' + drink;
+        if (message && message.length !== 0) {
+            results.userResults += ': "_' + message + '_"  ';
+        }
+        results.userResults += '  \n';
+
+        if (results.countDrinks.hasOwnProperty(drink)) {
+            results.countDrinks[drink] = results.countDrinks[drink] + 1;
+        } else {
+            results.countDrinks[drink] = 1;
+        }
+    }
+
+    return results;
+}
+
+function collateTotals(countDrinks) {
+    let totalsString = '\n>*Totals*:  \n';
+
+    for (let drink in countDrinks) {
+        totalsString += '>' + drink + ': ' + countDrinks[drink] + '  \n';
+    }
+
+    return totalsString;
 }
 
 module.exports.start = start;

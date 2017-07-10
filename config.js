@@ -1,8 +1,9 @@
 var config = {};
 
 config.settings = {
-    'timer': 120000,
-    'admin': 'blork'
+    'admin': 'blork',
+    'ratings': true,
+    'timer': 4500
 }
 
 config.drinks = {
