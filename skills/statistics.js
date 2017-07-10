@@ -71,8 +71,12 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
                 teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
                 confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
             }
-            controller.storage.teams.save(teamStorage);
         }
+
+        console.log('SAVING');
+        console.log(teamStorage);
+
+        controller.storage.teams.save(teamStorage);
 
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
             dm.say(confirmationMessage);
