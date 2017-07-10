@@ -1,3 +1,4 @@
+var config = require('../config.js');
 var tracking = require('../shared/tracking.js');
 var statistics = require('./statistics.js');
 
