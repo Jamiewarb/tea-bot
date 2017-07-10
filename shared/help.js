@@ -68,28 +68,28 @@ help.attachments = [
         'actions': [
             {
                 'name': 'my_brews',
-                'text': 'DM me my brews!',
+                'text': 'DM me my brews',
                 'type': 'button',
                 'value': 'show'
             }
         ]
     },
-    // {
-    //     'fallback': 'teaderboard - View the Teaderboard',
-    //     'title': 'teaderboard',
-    //     'text': 'View the Teaderboard',
-    //     'color': config.optionSettings.teaderboard.color,
-    //     'callback_id': 'assist_action',
-    //     'attachment_type': 'default',
-    //     'actions': [
-    //         {
-    //             'name': 'teaderboard',
-    //             'text': 'DM me my brews!',
-    //             'type': 'button',
-    //             'value': 'show'
-    //         }
-    //     ]
-    // },
+    {
+        'fallback': 'teaderboard - View the Teaderboard',
+        'title': 'teaderboard',
+        'text': 'View the Teaderboard',
+        'color': config.optionSettings.teaderboard.color,
+        'callback_id': 'assist_action',
+        'attachment_type': 'default',
+        'actions': [
+            {
+                'name': 'teaderboard',
+                'text': 'View Teaderboard',
+                'type': 'button',
+                'value': 'show'
+            }
+        ]
+    },
     {
         'fallback': 'assist - View all these commands again',
         'title': 'assist',
