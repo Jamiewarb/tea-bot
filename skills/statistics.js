@@ -15,7 +15,7 @@ var controller = null;
  *     id: 'U045VRZFT',
  *     brewRatings: {
  *         U045VRZFT: {
- *             100717-190702: { // This is the round identifier, from current date time
+ *             '10/7/17-19:07:02': { // This is the round identifier, from current date time
  *                 U082YDTST: {
  *                     'up': 0,
  *                     'down': 0,
@@ -47,7 +47,12 @@ const addMade = function(user, amount) {
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
-    //if (userRatee === userRater) return;
+    if (userRatee === userRater) {
+        bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
+            dm.say('You can\'t rate your own brew, fool!');
+        });
+        return;
+    }
 
     controller.storage.teams.get(team, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
