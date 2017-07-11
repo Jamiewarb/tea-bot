@@ -97,6 +97,17 @@ const end = function(controller, bot, source) {
                                         '/' + curDT.getFullYear() + '-' + curDT.getHours() +
                                         ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
 
+            let positiveMessages = [
+                'Cracking Brew',
+                'Best Brew I\'ve ever had',
+                'Incredible Brew',
+                'Nothing beats this Brew',
+                'Proper Good Brew',
+                'Delightful Brew',
+                'Amazing Brew',
+                'Perfect Brew'
+            ];
+
             let ratingMessage = {
                 'text': 'If you think this was a proper cracking brew, thumb it up!',
                 'attachments': [
@@ -108,7 +119,7 @@ const end = function(controller, bot, source) {
                         'actions': [
                             {
                                 'name': 'rateUp',
-                                'text': ':thumbsup: Cracking Brew',
+                                'text': ':thumbsup: ' + positiveMessages[Math.floor(Math.random() * positiveMessages.length)],
                                 'type': 'button',
                                 'value': maker,
                             }
