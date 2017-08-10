@@ -36,7 +36,7 @@ module.exports = function(controller) {
 
     controller.hears(['^outputTeamStorage'], 'direct_message', function(bot, message) {
         controller.storage.teams.get(message.team, function(err, teamStorage) {
-            console.log(teamStorage);
+            console.log(JSON.stringify(teamStorage));
         });
     });
 
