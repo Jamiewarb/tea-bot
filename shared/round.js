@@ -59,6 +59,11 @@ const end = function(controller, bot, source) {
         type = tracking.getType(source.channel),
         maker = tracking.getMaker(source.channel);
 
+    let curDT = new Date(),
+        roundID = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
+                                    '/' + curDT.getFullYear() + '-' + curDT.getHours() +
+                                    ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
+
     tracking.deactivateChannel(source.channel);
 
     let {allUsers, countDrinks, userResults} = collateUserChoices(choices);
@@ -74,6 +79,8 @@ const end = function(controller, bot, source) {
     let finalOutput = '~-=-=-=-=-=-=-~ Beverages ~-=-=-=-=-=-=-~\n\n' +
                       userResults +
                       collateTotals(countDrinks);
+
+    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID);
 
     bot.startConversation(source, function(err, convo) {
 
@@ -91,11 +98,6 @@ const end = function(controller, bot, source) {
         }
 
         if (config.settings.ratings) {
-
-            let curDT = new Date(),
-                messageDateTimeString = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
-                                        '/' + curDT.getFullYear() + '-' + curDT.getHours() +
-                                        ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
 
             let messages = [
                 {
@@ -136,26 +138,20 @@ const end = function(controller, bot, source) {
                     {
                         'fallback': 'Looks like your chat client doesn\'t support rating this brew',
                         'color': config.optionSettings.me.color,
-                        'callback_id': 'rating_' + messageDateTimeString,
+                        'callback_id': 'rating_' + roundID,
                         'attachment_type': 'default',
                         'actions': [
                             {
                                 'name': 'rateUp',
                                 'text': ':thumbsup: ' + messages[randomRating]['positive'],
                                 'type': 'button',
-                                'value': {
-                                    'maker': maker,
-                                    'allUsers': allUsers
-                                }
+                                'value': maker
                             },
                             {
                                 'name': 'rateDown',
                                 'text': ':thumbsdown: ' + messages[randomRating]['negative'],
                                 'type': 'button',
-                                'value': {
-                                    'maker': maker,
-                                    'allUsers': allUsers
-                                }
+                                'value': allUsers
                             }
                         ]
                     }
