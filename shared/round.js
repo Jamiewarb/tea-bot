@@ -103,16 +103,12 @@ const end = function(controller, bot, source) {
                     'negative': 'Fracking Brew'
                 },
                 {
-                    'positive': 'Best Brew I\'ve ever had',
-                    'negative': 'Worst Brew I\'ve ever had'
+                    'positive': 'Simply Amazing',
+                    'negative': 'Simply Awful'
                 },
                 {
-                    'positive': 'Incredible Brew',
-                    'negative': 'Terrible Brew'
-                },
-                {
-                    'positive': 'Nothing beats this Brew',
-                    'negative': 'Everything beats this Brew'
+                    'positive': 'Incredibrew',
+                    'negative': 'Terribrew'
                 },
                 {
                     'positive': 'Proper Good Brew',
