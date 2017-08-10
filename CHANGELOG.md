@@ -7,6 +7,7 @@ All notable changes to this project are documented here, and adheres to
 
 *Enhancements:*
 * Added multiple messages to the 'Cracking Brew' button to change what it says
+* Activated downvoting a tea, and included its own messages
 
 ## [v1.3.3](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.3.3) - 11th July 2017
 
