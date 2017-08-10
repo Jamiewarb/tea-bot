@@ -14,6 +14,9 @@ module.exports = function(controller) {
                 if (trigger.actions[0].name === 'rateUp') {
                     statistics.rateBrew(bot, trigger.team.id, trigger.actions[0].value, trigger.user, 'up', roundID);
                 }
+                if (trigger.actions[0].name === 'rateDown') {
+                    statistics.rateBrew(bot, trigger.team.id, trigger.actions[0].value, trigger.user, 'down', roundID);
+                }
             }
         }
     });
