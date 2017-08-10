@@ -147,21 +147,19 @@ const end = function(controller, bot, source) {
                                 'name': 'rateUp',
                                 'text': ':thumbsup: ' + messages[randomRating]['positive'],
                                 'type': 'button',
-                                'value': maker,
-                            }
-                        ]
-                    },
-                    {
-                        'fallback': 'Looks like your chat client doesn\'t support rating this brew',
-                        'color': config.optionSettings.me.color,
-                        'callback_id': 'rating_' + messageDateTimeString,
-                        'attachment_type': 'default',
-                        'actions': [
+                                'value': {
+                                    'maker': maker,
+                                    'allUsers': allUsers
+                                }
+                            },
                             {
                                 'name': 'rateDown',
                                 'text': ':thumbsdown: ' + messages[randomRating]['negative'],
                                 'type': 'button',
-                                'value': maker,
+                                'value': {
+                                    'maker': maker,
+                                    'allUsers': allUsers
+                                }
                             }
                         ]
                     }
