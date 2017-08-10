@@ -151,7 +151,7 @@ const end = function(controller, bot, source) {
                                 'name': 'rateDown',
                                 'text': ':thumbsdown: ' + messages[randomRating]['negative'],
                                 'type': 'button',
-                                'value': allUsers
+                                'value': maker
                             }
                         ]
                     }
