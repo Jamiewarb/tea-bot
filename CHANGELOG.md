@@ -3,7 +3,12 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v1.4.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.4.0)
+## [v1.4.1](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.4.1)
+
+*Bug Fixes:*
+* Fixed problem from v1.4.0 that caused program to crash
+
+## v1.4.0
 
 *Enhancements:*
 * Added multiple messages to the 'Cracking Brew' button to change what it says
