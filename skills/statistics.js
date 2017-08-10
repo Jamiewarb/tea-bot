@@ -16,8 +16,15 @@ var controller = null;
  *     brewRatings: {
  *         U045VRZFT: {
  *             '10/7/17-19:07:02': { // This is the round identifier, from current date time
+ *                 'choices': {
+ *                     U2UB89MH7: {
+ *                         user: 'U2UB89MH7',
+ *                         drink: 'tea'
+ *                         message: 'bork'
+ *                     }
+ *                 },
  *                 U082YDTST: {
- *                     'up': 0,
+ *                     'up': 0, OR
  *                     'down': 0,
  *                 }
  *             }
@@ -43,6 +50,21 @@ const addMade = function(user, amount) {
         userStorage = checkUserExists(user, userStorage);
         userStorage.drinks.made += amount;
         controller.storage.users.save(userStorage);
+    });
+}
+
+const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
+
+        if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
+            teamStorage.brewRatings[userRatee] = {};
+        }
+        if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[userRatee][roundID] = {};
+        }
+
+        teamStorage.brewRatings[userRatee][roundID].choices = choices;
     });
 }
 
@@ -306,6 +328,7 @@ function getRatings(teamData) {
 
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
+module.exports.addChoicesToRound = addChoicesToRound;
 module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
 module.exports.addUser = addUser;
