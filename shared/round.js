@@ -98,38 +98,38 @@ const end = function(controller, bot, source) {
                                         ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
 
             let messages = [
-                [
-                    'positive' = 'Cracking Brew',
-                    'negative' = 'Fracking Brew',
-                ],
-                [
-                    'positive' = 'Best Brew I\'ve ever had',
-                    'negative' = 'Worst Brew I\'ve ever had',
-                ],
-                [
-                    'positive' = 'Incredible Brew',
-                    'negative' = 'Terrible Brew',
-                ],
-                [
-                    'positive' = 'Nothing beats this Brew',
-                    'negative' = 'Everything beats this Brew',
-                ],
-                [
-                    'positive' = 'Proper Good Brew',
-                    'negative' = 'Proper Shite Brew',
-                ],
-                [
-                    'positive' = 'Delightful Brew',
-                    'negative' = 'Shoddy Brew',
-                ],
-                [
-                    'positive' = 'Amazing Brew',
-                    'negative' = 'Horrible Brew',
-                ],
-                [
-                    'positive' = 'Perfect Brew'
-                    'negative' = 'Imperfect Brew',
-                ],
+                {
+                    'positive': 'Cracking Brew',
+                    'negative': 'Fracking Brew',
+                },
+                {
+                    'positive': 'Best Brew I\'ve ever had',
+                    'negative': 'Worst Brew I\'ve ever had',
+                },
+                {
+                    'positive': 'Incredible Brew',
+                    'negative': 'Terrible Brew',
+                },
+                {
+                    'positive': 'Nothing beats this Brew',
+                    'negative': 'Everything beats this Brew',
+                },
+                {
+                    'positive': 'Proper Good Brew',
+                    'negative': 'Proper Shite Brew',
+                },
+                {
+                    'positive': 'Delightful Brew',
+                    'negative': 'Shoddy Brew',
+                },
+                {
+                    'positive': 'Amazing Brew',
+                    'negative': 'Horrible Brew',
+                },
+                {
+                    'positive': 'Perfect Brew'
+                    'negative': 'Imperfect Brew',
+                },
             ];
 
             let randomRating = Math.floor(Math.random() * messages.length);
