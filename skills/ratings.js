@@ -12,6 +12,9 @@ module.exports = function(controller) {
                 let roundID = callback_id.substr(callback_id.indexOf('_') + 1),
                     rating = false;
 
+                console.log('Interactive Message Callback');
+                console.log(trigger.actions[0].value);
+
                 console.log(trigger.actions[0].value['allUsers']);
 
                 if (trigger.actions[0].name === 'rateUp') {
