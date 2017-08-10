@@ -127,7 +127,7 @@ const end = function(controller, bot, source) {
                     'negative': 'Horrible Brew'
                 },
                 {
-                    'positive': 'Perfect Brew'
+                    'positive': 'Perfect Brew',
                     'negative': 'Imperfect Brew'
                 }
             ];
