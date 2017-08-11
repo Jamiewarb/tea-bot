@@ -10,8 +10,7 @@ const start = function(controller, bot, source, type, maker) {
                                     '/' + curDT.getFullYear() + '-' + curDT.getHours() +
                                     ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
 
-    console.log(source);
-    statistics.addRoundToStats(bot, source.team, type, maker, roundID);
+    statistics.addRoundToStats(bot, source.team.id, type, maker, roundID);
 
     tracking.activateChannel(source.channel, type);
 
