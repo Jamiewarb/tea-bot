@@ -3,7 +3,7 @@
 All notable changes to this project are documented here, and adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v1.5.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.4.1)
+## [v1.5.0](https://github.com/Jamiewarb/tea-bot/releases/tag/v1.5.0)
 
 *Enhancements:*
 * Tracked who was actually in a round
