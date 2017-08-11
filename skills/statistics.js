@@ -65,6 +65,7 @@ const addRoundToStats = function(bot, team, type, maker, roundID) {
         }
 
         controller.storage.teams.save(teamStorage);
+        console.log(JSON.stringify(teamStorage));
     });
 }
 
@@ -82,6 +83,7 @@ const addChoicesToRound = function(bot, team, maker, choices, roundID) {
         teamStorage.brewRatings[maker][roundID].choices = choices;
 
         controller.storage.teams.save(teamStorage);
+        console.log(JSON.stringify(teamStorage));
     });
 }
 
@@ -116,7 +118,6 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
                 confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
             }
         }
-
 
         controller.storage.teams.save(teamStorage);
 
