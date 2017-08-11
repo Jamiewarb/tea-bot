@@ -80,12 +80,12 @@ const end = function(controller, bot, source) {
                       userResults +
                       collateTotals(countDrinks);
 
-    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID)
-        .then(function(result) {
-            console.log("Promise all good");
-        }, function(err) {
-            console.log(err);
-        });
+    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID);
+        // .then(function(result) {
+        //     console.log("Promise all good");
+        // }, function(err) {
+        //     console.log(err);
+        // });
 
     console.log('after call addChoicesToRound');
 
