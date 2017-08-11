@@ -43,9 +43,9 @@ const start = function(controller, bot, source, type, maker) {
 
     let text = '';
     if (type === 'random') {
-        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 2 minutes one of you will be randomly selected to make them!';
+        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 3 minutes one of you will be randomly selected to make them!';
     } else {
-        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 2 minutes to get your orders in by typing the below or click the buttons:';
+        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 3 minutes to get your orders in by typing the below or click the buttons:';
     }
 
     bot.say({
