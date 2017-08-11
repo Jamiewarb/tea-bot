@@ -64,8 +64,7 @@ const addRoundToStats = function(bot, team, type, maker, roundID) {
             teamStorage.brewRatings[maker][roundID] = {};
         }
 
-        console.log("SETUP TINGS");
-        console.log(teamStorage);
+        controller.storage.teams.save(teamStorage);
     });
 }
 
@@ -81,6 +80,8 @@ const addChoicesToRound = function(bot, team, maker, choices, roundID) {
         }
 
         teamStorage.brewRatings[maker][roundID].choices = choices;
+
+        controller.storage.teams.save(teamStorage);
     });
 }
 
