@@ -54,7 +54,7 @@ const addMade = function(user, amount) {
 }
 
 const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
-    return new Promise(function(resolve, reject) {
+    // return new Promise(function(resolve, reject) {
         console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
         controller.storage.teams.get(team, function(err, teamStorage) {
             teamStorage = checkTeamExists(team, teamStorage);
@@ -70,9 +70,9 @@ const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
 
             console.log(JSON.stringify(teamStorage.brewRatings[userRatee][roundID]));
 
-            resolve(1);
+            // resolve(1);
         });
-    });
+    // });
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
