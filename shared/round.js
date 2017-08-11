@@ -5,6 +5,13 @@ var statistics = require('../skills/statistics.js');
 const start = function(controller, bot, source, type, maker) {
     if (tracking.channelActive(source.channel)) return false;
 
+    let curDT = new Date(),
+        roundID = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
+                                    '/' + curDT.getFullYear() + '-' + curDT.getHours() +
+                                    ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
+
+    statistics.addRoundToStats(bot, source.team.id, type, maker, roundID);
+
     tracking.activateChannel(source.channel, type);
 
     if (type !== 'random') tracking.setMaker(source.channel, maker);
@@ -36,9 +43,9 @@ const start = function(controller, bot, source, type, maker) {
 
     let text = '';
     if (type === 'random') {
-        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 2 minutes one of you will be randomly selected to make them!';
+        text = '<@channel> - :fire: A random round has been called! Pick your drinks, and then in 3 minutes one of you will be randomly selected to make them!';
     } else {
-        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 2 minutes to get your orders in by typing the below or click the buttons:';
+        text = '<@channel> - :tada: <@' + source.user + '> is doing a round! You\'ve got 3 minutes to get your orders in by typing the below or click the buttons:';
     }
 
     bot.say({
@@ -48,12 +55,12 @@ const start = function(controller, bot, source, type, maker) {
     });
 
     setTimeout(function() {
-        end(controller, bot, source);
+        end(controller, bot, source, roundID);
     }, config.settings.timer);
 
 }
 
-const end = function(controller, bot, source) {
+const end = function(controller, bot, source, roundID) {
 
     let choices = tracking.getChoices(source.channel),
         type = tracking.getType(source.channel),
@@ -75,6 +82,8 @@ const end = function(controller, bot, source) {
                       userResults +
                       collateTotals(countDrinks);
 
+    statistics.addChoicesToRound(bot, source.team.id, maker, choices, roundID);
+
     bot.startConversation(source, function(err, convo) {
 
         convo.say(finalOutput);
@@ -92,27 +101,18 @@ const end = function(controller, bot, source) {
 
         if (config.settings.ratings) {
 
-            let curDT = new Date(),
-                messageDateTimeString = curDT.getDate() + '/' + (curDT.getMonth() + 1) +
-                                        '/' + curDT.getFullYear() + '-' + curDT.getHours() +
-                                        ':' + curDT.getMinutes() + ':' + curDT.getSeconds();
-
             let messages = [
                 {
                     'positive': 'Cracking Brew',
                     'negative': 'Fracking Brew'
                 },
                 {
-                    'positive': 'Best Brew I\'ve ever had',
-                    'negative': 'Worst Brew I\'ve ever had'
+                    'positive': 'Simply Amazing',
+                    'negative': 'Simply Awful'
                 },
                 {
-                    'positive': 'Incredible Brew',
-                    'negative': 'Terrible Brew'
-                },
-                {
-                    'positive': 'Nothing beats this Brew',
-                    'negative': 'Everything beats this Brew'
+                    'positive': 'Incredibrew',
+                    'negative': 'Terribrew'
                 },
                 {
                     'positive': 'Proper Good Brew',
@@ -140,28 +140,20 @@ const end = function(controller, bot, source) {
                     {
                         'fallback': 'Looks like your chat client doesn\'t support rating this brew',
                         'color': config.optionSettings.me.color,
-                        'callback_id': 'rating_' + messageDateTimeString,
+                        'callback_id': 'rating_' + roundID,
                         'attachment_type': 'default',
                         'actions': [
                             {
                                 'name': 'rateUp',
                                 'text': ':thumbsup: ' + messages[randomRating]['positive'],
                                 'type': 'button',
-                                'value': maker,
-                            }
-                        ]
-                    },
-                    {
-                        'fallback': 'Looks like your chat client doesn\'t support rating this brew',
-                        'color': config.optionSettings.me.color,
-                        'callback_id': 'rating_' + messageDateTimeString,
-                        'attachment_type': 'default',
-                        'actions': [
+                                'value': maker
+                            },
                             {
                                 'name': 'rateDown',
                                 'text': ':thumbsdown: ' + messages[randomRating]['negative'],
                                 'type': 'button',
-                                'value': maker,
+                                'value': maker
                             }
                         ]
                     }
@@ -170,7 +162,7 @@ const end = function(controller, bot, source) {
 
             setTimeout(function() {
                 bot.reply(source, ratingMessage);
-            }, 15000);
+            }, 45000);
 
         }
 
