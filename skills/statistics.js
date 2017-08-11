@@ -109,15 +109,19 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             teamStorage.brewRatings[userRatee][roundID] = {};
         }
 
-        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
-            confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+        if (!teamStorage.brewRatings[userRatee][roundID]['choices'].hasOwnProperty(userRater)) {
+            confirmationMessage = 'You weren\'t involved in this round, so you can\'t vote!';
         } else {
-            if (rating === 'up') {
-                teamStorage.brewRatings[userRatee][roundID][userRater] = {'up': 1};
-                confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
-            } else if (rating === 'down') {
-                teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
-                confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+            if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
+                confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+            } else {
+                if (rating === 'up') {
+                    teamStorage.brewRatings[userRatee][roundID][userRater] = {'up': 1};
+                    confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
+                } else if (rating === 'down') {
+                    teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
+                    confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+                }
             }
         }
 
