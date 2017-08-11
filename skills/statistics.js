@@ -63,6 +63,9 @@ const addRoundToStats = function(bot, team, type, maker, roundID) {
         if (!teamStorage.brewRatings[maker].hasOwnProperty(roundID)) {
             teamStorage.brewRatings[maker][roundID] = {};
         }
+
+        console.log("SETUP TINGS");
+        console.log(teamStorage);
     });
 }
 
