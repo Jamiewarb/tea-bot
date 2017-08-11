@@ -2,7 +2,7 @@ var config = require('../config.js');
 
 var help = {};
 
-help.text = 'Here\'s a list of commands you fools can use. Just write "<@mr_tea> <command>" in a channel that I\'m in';
+help.text = 'Here\'s a list of commands you fools can use. Just write "<@mr-tea> <command>" in a channel that I\'m in';
 help.attachments = [
     {
         'fallback': 'me - Start a round of tea with you as the fool that makes them',
