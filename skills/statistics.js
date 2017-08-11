@@ -65,8 +65,6 @@ const addRoundToStats = function(bot, team, type, maker, roundID) {
         }
 
         controller.storage.teams.save(teamStorage);
-        console.log("Add Round To Stats:");
-        console.log(JSON.stringify(teamStorage));
     });
 }
 
@@ -84,8 +82,6 @@ const addChoicesToRound = function(bot, team, maker, choices, roundID) {
         teamStorage.brewRatings[maker][roundID].choices = choices;
 
         controller.storage.teams.save(teamStorage);
-        console.log("Add Choices To Round:");
-        console.log(JSON.stringify(teamStorage));
     });
 }
 
@@ -94,7 +90,7 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
             dm.say('You can\'t rate your own brew, fool!');
         });
-        //return;
+        return;
     }
 
     controller.storage.teams.get(team, function(err, teamStorage) {

@@ -162,7 +162,7 @@ const end = function(controller, bot, source, roundID) {
 
             setTimeout(function() {
                 bot.reply(source, ratingMessage);
-            }, 15000);
+            }, 45000);
 
         }
 
