@@ -72,7 +72,7 @@ const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
 
             resolve(1);
         });
-    }
+    });
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
