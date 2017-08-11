@@ -80,105 +80,110 @@ const end = function(controller, bot, source) {
                       userResults +
                       collateTotals(countDrinks);
 
-    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID);
+    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID)
+        .then(function(result) {
+            console.log("Promise all good");
+        }, function(err) {
+            console.log(err);
+        });
+
     console.log('after call addChoicesToRound');
-    statistics.testCall();
 
-    bot.startConversation(source, function(err, convo) {
+    // bot.startConversation(source, function(err, convo) {
 
-        convo.say(finalOutput);
+    //     convo.say(finalOutput);
 
-        if (type === 'random') {
-            let randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
-            if (allUsers.length > 1) {
-                convo.say('Now which of you fools is going to make these beverages?');
-                convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
-            } else {
-                convo.say('Guess it\'s gonna have to be <@' + randomUser + '>');
-            }
-            maker = randomUser;
-        }
+    //     if (type === 'random') {
+    //         let randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
+    //         if (allUsers.length > 1) {
+    //             convo.say('Now which of you fools is going to make these beverages?');
+    //             convo.say('Looks like it\'s gonna be... <@' + randomUser + '>');
+    //         } else {
+    //             convo.say('Guess it\'s gonna have to be <@' + randomUser + '>');
+    //         }
+    //         maker = randomUser;
+    //     }
 
-        if (config.settings.ratings) {
+    //     if (config.settings.ratings) {
 
-            let messages = [
-                {
-                    'positive': 'Cracking Brew',
-                    'negative': 'Fracking Brew'
-                },
-                {
-                    'positive': 'Simply Amazing',
-                    'negative': 'Simply Awful'
-                },
-                {
-                    'positive': 'Incredibrew',
-                    'negative': 'Terribrew'
-                },
-                {
-                    'positive': 'Proper Good Brew',
-                    'negative': 'Proper Shite Brew'
-                },
-                {
-                    'positive': 'Delightful Brew',
-                    'negative': 'Shoddy Brew'
-                },
-                {
-                    'positive': 'Amazing Brew',
-                    'negative': 'Horrible Brew'
-                },
-                {
-                    'positive': 'Perfect Brew',
-                    'negative': 'Imperfect Brew'
-                }
-            ];
+    //         let messages = [
+    //             {
+    //                 'positive': 'Cracking Brew',
+    //                 'negative': 'Fracking Brew'
+    //             },
+    //             {
+    //                 'positive': 'Simply Amazing',
+    //                 'negative': 'Simply Awful'
+    //             },
+    //             {
+    //                 'positive': 'Incredibrew',
+    //                 'negative': 'Terribrew'
+    //             },
+    //             {
+    //                 'positive': 'Proper Good Brew',
+    //                 'negative': 'Proper Shite Brew'
+    //             },
+    //             {
+    //                 'positive': 'Delightful Brew',
+    //                 'negative': 'Shoddy Brew'
+    //             },
+    //             {
+    //                 'positive': 'Amazing Brew',
+    //                 'negative': 'Horrible Brew'
+    //             },
+    //             {
+    //                 'positive': 'Perfect Brew',
+    //                 'negative': 'Imperfect Brew'
+    //             }
+    //         ];
 
-            let randomRating = Math.floor(Math.random() * messages.length);
+    //         let randomRating = Math.floor(Math.random() * messages.length);
 
-            let ratingMessage = {
-                'text': 'If you think this was a proper cracking brew, thumb it up!',
-                'attachments': [
-                    {
-                        'fallback': 'Looks like your chat client doesn\'t support rating this brew',
-                        'color': config.optionSettings.me.color,
-                        'callback_id': 'rating_' + roundID,
-                        'attachment_type': 'default',
-                        'actions': [
-                            {
-                                'name': 'rateUp',
-                                'text': ':thumbsup: ' + messages[randomRating]['positive'],
-                                'type': 'button',
-                                'value': maker
-                            },
-                            {
-                                'name': 'rateDown',
-                                'text': ':thumbsdown: ' + messages[randomRating]['negative'],
-                                'type': 'button',
-                                'value': maker
-                            }
-                        ]
-                    }
-                ]
-            };
+    //         let ratingMessage = {
+    //             'text': 'If you think this was a proper cracking brew, thumb it up!',
+    //             'attachments': [
+    //                 {
+    //                     'fallback': 'Looks like your chat client doesn\'t support rating this brew',
+    //                     'color': config.optionSettings.me.color,
+    //                     'callback_id': 'rating_' + roundID,
+    //                     'attachment_type': 'default',
+    //                     'actions': [
+    //                         {
+    //                             'name': 'rateUp',
+    //                             'text': ':thumbsup: ' + messages[randomRating]['positive'],
+    //                             'type': 'button',
+    //                             'value': maker
+    //                         },
+    //                         {
+    //                             'name': 'rateDown',
+    //                             'text': ':thumbsdown: ' + messages[randomRating]['negative'],
+    //                             'type': 'button',
+    //                             'value': maker
+    //                         }
+    //                     ]
+    //                 }
+    //             ]
+    //         };
 
-            setTimeout(function() {
-                bot.reply(source, ratingMessage);
-            }, 15000);
+    //         setTimeout(function() {
+    //             bot.reply(source, ratingMessage);
+    //         }, 15000);
 
-        }
+    //     }
 
-    });
+    // });
 
-    let makerMakes = allUsers.length;
+    // let makerMakes = allUsers.length;
 
-    for (let i = 0; i < allUsers.length; i++) {
-        if (allUsers[i] !== maker) {
-            statistics.addDrank(allUsers[i], 1);
-        } else {
-            makerMakes -= 1; // We don't count drinks made for yourself
-        }
-    }
+    // for (let i = 0; i < allUsers.length; i++) {
+    //     if (allUsers[i] !== maker) {
+    //         statistics.addDrank(allUsers[i], 1);
+    //     } else {
+    //         makerMakes -= 1; // We don't count drinks made for yourself
+    //     }
+    // }
 
-    statistics.addMade(maker, makerMakes);
+    // statistics.addMade(maker, makerMakes);
 
 }
 

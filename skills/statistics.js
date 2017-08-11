@@ -21,12 +21,12 @@ var controller = null;
  *                         user: 'U2UB89MH7',
  *                         drink: 'tea'
  *                         message: 'bork'
- *                     }
+ *                     }, ...
  *                 },
  *                 U082YDTST: {
  *                     'up': 0, OR
  *                     'down': 0,
- *                 }
+ *                 }, ...
  *             }
  *         }
  *     }
@@ -53,26 +53,26 @@ const addMade = function(user, amount) {
     });
 }
 
-const testCall = function() {
-    console.log('statistics test call');
-}
-
 const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
-    console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
-    controller.storage.teams.get(team, function(err, teamStorage) {
-        teamStorage = checkTeamExists(team, teamStorage);
+    return new Promise(function(resolve, reject) {
+        console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
+        controller.storage.teams.get(team, function(err, teamStorage) {
+            teamStorage = checkTeamExists(team, teamStorage);
 
-        if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
-            teamStorage.brewRatings[userRatee] = {};
-        }
-        if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
-            teamStorage.brewRatings[userRatee][roundID] = {};
-        }
+            if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
+                teamStorage.brewRatings[userRatee] = {};
+            }
+            if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
+                teamStorage.brewRatings[userRatee][roundID] = {};
+            }
 
-        teamStorage.brewRatings[userRatee][roundID].choices = choices;
+            teamStorage.brewRatings[userRatee][roundID].choices = choices;
 
-        console.log(JSON.stringify(teamStorage.brewRatings[userRatee][roundID]));
-    });
+            console.log(JSON.stringify(teamStorage.brewRatings[userRatee][roundID]));
+
+            resolve(1);
+        });
+    }
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
@@ -80,7 +80,7 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
             dm.say('You can\'t rate your own brew, fool!');
         });
-        return;
+        //return;
     }
 
     controller.storage.teams.get(team, function(err, teamStorage) {
@@ -335,7 +335,6 @@ function getRatings(teamData) {
 
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
-module.exports.testCall = testCall;
 module.exports.addChoicesToRound = addChoicesToRound;
 module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
