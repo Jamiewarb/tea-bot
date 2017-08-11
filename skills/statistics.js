@@ -54,6 +54,7 @@ const addMade = function(user, amount) {
 }
 
 const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
+    console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
     controller.storage.teams.get(team, function(err, teamStorage) {
         teamStorage = checkTeamExists(team, teamStorage);
 
@@ -65,6 +66,8 @@ const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
         }
 
         teamStorage.brewRatings[userRatee][roundID].choices = choices;
+
+        console.log(JSON.stringify(teamStorage.brewRatings[userRatee][roundID]));
     });
 }
 
