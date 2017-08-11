@@ -82,7 +82,7 @@ const end = function(controller, bot, source, roundID) {
                       userResults +
                       collateTotals(countDrinks);
 
-    statistics.addChoicesToRound(bot, source.team, maker, choices, roundID);
+    statistics.addChoicesToRound(bot, source.team.id, maker, choices, roundID);
 
     bot.startConversation(source, function(err, convo) {
 
