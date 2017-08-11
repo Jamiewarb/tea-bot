@@ -53,6 +53,10 @@ const addMade = function(user, amount) {
     });
 }
 
+const testCall = function() {
+    console.log('statistics test call');
+}
+
 const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
     console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
     controller.storage.teams.get(team, function(err, teamStorage) {
@@ -331,6 +335,7 @@ function getRatings(teamData) {
 
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
+module.exports.testCall = testCall;
 module.exports.addChoicesToRound = addChoicesToRound;
 module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
