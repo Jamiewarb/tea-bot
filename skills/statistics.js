@@ -65,6 +65,7 @@ const addRoundToStats = function(bot, team, type, maker, roundID) {
         }
 
         controller.storage.teams.save(teamStorage);
+        console.log("Add Round To Stats:");
         console.log(JSON.stringify(teamStorage));
     });
 }
@@ -83,6 +84,7 @@ const addChoicesToRound = function(bot, team, maker, choices, roundID) {
         teamStorage.brewRatings[maker][roundID].choices = choices;
 
         controller.storage.teams.save(teamStorage);
+        console.log("Add Choices To Round:");
         console.log(JSON.stringify(teamStorage));
     });
 }
