@@ -81,6 +81,8 @@ const end = function(controller, bot, source) {
                       collateTotals(countDrinks);
 
     statistics.addChoicesToRound(bot, source.team, maker, choices, roundID);
+    console.log('after call addChoicesToRound');
+    statistics.testCall();
 
     bot.startConversation(source, function(err, convo) {
 
