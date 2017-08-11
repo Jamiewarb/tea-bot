@@ -34,6 +34,12 @@ module.exports = function(controller) {
         });
     });
 
+    controller.hears(['^outputTeamStorage'], 'direct_message', function(bot, message) {
+        controller.storage.teams.get(message.team, function(err, teamStorage) {
+            console.log(JSON.stringify(teamStorage));
+        });
+    });
+
     controller.hears(['^manualAddMade'], 'direct_message', function(bot, message) {
         parseManual(bot, message, 'addMade');
     });

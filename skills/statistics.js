@@ -16,10 +16,17 @@ var controller = null;
  *     brewRatings: {
  *         U045VRZFT: {
  *             '10/7/17-19:07:02': { // This is the round identifier, from current date time
+ *                 'choices': {
+ *                     U2UB89MH7: {
+ *                         user: 'U2UB89MH7',
+ *                         drink: 'tea'
+ *                         message: 'bork'
+ *                     }, ...
+ *                 },
  *                 U082YDTST: {
- *                     'up': 0,
+ *                     'up': 0, OR
  *                     'down': 0,
- *                 }
+ *                 }, ...
  *             }
  *         }
  *     }
@@ -46,6 +53,38 @@ const addMade = function(user, amount) {
     });
 }
 
+const addRoundToStats = function(bot, team, type, maker, roundID) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
+
+        if (!teamStorage.brewRatings.hasOwnProperty(maker)) {
+            teamStorage.brewRatings[maker] = {};
+        }
+        if (!teamStorage.brewRatings[maker].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[maker][roundID] = {};
+        }
+
+        controller.storage.teams.save(teamStorage);
+    });
+}
+
+const addChoicesToRound = function(bot, team, maker, choices, roundID) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
+
+        if (!teamStorage.brewRatings.hasOwnProperty(maker)) {
+            teamStorage.brewRatings[maker] = {};
+        }
+        if (!teamStorage.brewRatings[maker].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[maker][roundID] = {};
+        }
+
+        teamStorage.brewRatings[maker][roundID].choices = choices;
+
+        controller.storage.teams.save(teamStorage);
+    });
+}
+
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
     if (userRatee === userRater) {
         bot.startPrivateConversation({ 'user': userRater }, function(err, dm) {
@@ -66,18 +105,21 @@ const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
             teamStorage.brewRatings[userRatee][roundID] = {};
         }
 
-        if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
-            confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+        if (!teamStorage.brewRatings[userRatee][roundID]['choices'].hasOwnProperty(userRater)) {
+            confirmationMessage = 'You weren\'t involved in this round, so you can\'t vote!';
         } else {
-            if (rating === 'up') {
-                teamStorage.brewRatings[userRatee][roundID][userRater] = {'up': 1};
-                confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
-            } else if (rating === 'down') {
-                teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
-                confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+            if (teamStorage.brewRatings[userRatee][roundID].hasOwnProperty(userRater)) {
+                confirmationMessage = 'You\'ve already voted on this round - you cannot vote multiple times for a round';
+            } else {
+                if (rating === 'up') {
+                    teamStorage.brewRatings[userRatee][roundID][userRater] = {'up': 1};
+                    confirmationMessage = '> Great! You\'ve given <@' + userRatee + '>\'s latest round a thumbs up!';
+                } else if (rating === 'down') {
+                    teamStorage.brewRatings[userRatee][roundID][userRater] = {'down': 1};
+                    confirmationMessage = '> Ouch! You\'ve given <@' + userRatee + '>\'s latest round a thumbs down!';
+                }
             }
         }
-
 
         controller.storage.teams.save(teamStorage);
 
@@ -306,6 +348,8 @@ function getRatings(teamData) {
 
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
+module.exports.addRoundToStats = addRoundToStats;
+module.exports.addChoicesToRound = addChoicesToRound;
 module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
 module.exports.addUser = addUser;
