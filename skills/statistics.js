@@ -53,26 +53,32 @@ const addMade = function(user, amount) {
     });
 }
 
-const addChoicesToRound = function(bot, team, userRatee, choices, roundID) {
-    // return new Promise(function(resolve, reject) {
-        console.log('Adding choices to round'); // @TODO This isn't working for some reason!!!
-        controller.storage.teams.get(team, function(err, teamStorage) {
-            teamStorage = checkTeamExists(team, teamStorage);
+const addRoundToStats = function(bot, team, type, maker, roundID) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
 
-            if (!teamStorage.brewRatings.hasOwnProperty(userRatee)) {
-                teamStorage.brewRatings[userRatee] = {};
-            }
-            if (!teamStorage.brewRatings[userRatee].hasOwnProperty(roundID)) {
-                teamStorage.brewRatings[userRatee][roundID] = {};
-            }
+        if (!teamStorage.brewRatings.hasOwnProperty(maker)) {
+            teamStorage.brewRatings[maker] = {};
+        }
+        if (!teamStorage.brewRatings[maker].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[maker][roundID] = {};
+        }
+    });
+}
 
-            teamStorage.brewRatings[userRatee][roundID].choices = choices;
+const addChoicesToRound = function(bot, team, maker, choices, roundID) {
+    controller.storage.teams.get(team, function(err, teamStorage) {
+        teamStorage = checkTeamExists(team, teamStorage);
 
-            console.log(JSON.stringify(teamStorage.brewRatings[userRatee][roundID]));
+        if (!teamStorage.brewRatings.hasOwnProperty(maker)) {
+            teamStorage.brewRatings[maker] = {};
+        }
+        if (!teamStorage.brewRatings[maker].hasOwnProperty(roundID)) {
+            teamStorage.brewRatings[maker][roundID] = {};
+        }
 
-            // resolve(1);
-        });
-    // });
+        teamStorage.brewRatings[maker][roundID].choices = choices;
+    });
 }
 
 const rateBrew = function(bot, team, userRatee, userRater, rating, roundID) {
@@ -335,6 +341,7 @@ function getRatings(teamData) {
 
 module.exports.addDrank = addDrank;
 module.exports.addMade = addMade;
+module.exports.addRoundToStats = addRoundToStats;
 module.exports.addChoicesToRound = addChoicesToRound;
 module.exports.rateBrew = rateBrew;
 module.exports.tellMyStats = tellMyStats;
